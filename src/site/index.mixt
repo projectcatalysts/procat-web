@@ -1,0 +1,30 @@
+import [
+	html = "../scripts/html.mixt"
+	procat = "../scripts/procat.mixt"
+]
+
+{
+	slug = "/"
+	title = "Less complexity. More delivery."
+	body = [
+		"MIXT-powered engineering for payments systems, data transformation, and bespoke software."
+		procat::h1( "What we do" )
+		grid = [
+			[
+				id = "payments"
+				title = "Payments Systems"
+				;text = "ISO 20022, settlement flows, validation harnesses."
+			]
+			[
+				id = "data"
+				title = "Enterprise Data Transformation"
+				;text = "Deterministic pipelines with strict schemas & reproducible builds."
+			]
+			[
+				id = "software"
+				title = "Bespoke Software"
+				;text = "Go-first services, low-latency paths, clarity by design."
+			]
+		]
+	]
+}

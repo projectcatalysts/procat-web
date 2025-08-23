@@ -1,0 +1,41 @@
+import [
+	index = "site/index.mixt"
+	about = "site/about.mixt"
+]
+
+{
+	title = "Project Catalysts"
+	//tagline = "Payments systems, enterprise data transformation, & bespoke software — delivered fast, right, and maintainable."
+	tagline = "We solve. We deliver."
+	siteOwner = "Project Catalysts Ltd"
+	baseUrl = "https://projectcatalysts.com"
+	navTable = #table(
+		[
+			"id"
+			"title"
+			"target"
+			"path"
+			"source"
+		]
+		[
+			[
+				"home"
+				"Home"
+				"index.html"
+				"dist/"
+				index
+			]
+			[
+				"about"
+				"About"
+				"about.html"
+				"dist/"
+				about
+			]
+		]
+	)
+	social = {
+		github = "https://github.com/ProjectCatalysts"
+		linkedin = "https://www.linkedin.com/company/project-catalysts/"
+	}
+}

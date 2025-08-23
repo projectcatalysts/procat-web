@@ -1,0 +1,369 @@
+:root {
+	/* height of header */
+	--procat-header-h: 64px;
+	/* small grey gap under the header */
+	--procat-top-gap: 20px;
+	--procat-bottom-gap: 20px;
+	--procat-toc-w: 320px;
+	--procat-brand: #000;
+	--procat-text: #1a2840;
+	--procat-panel: #fff;
+	--procat-line: #d7dde5;
+	--procat-hover: rgba(0, 0, 0, .05);
+
+	/* needed to place the ToC in the grey gutter */
+	--doc-max: 960px;
+	/* gap between page edge and the ToC panel */
+}
+
+/* Smooth anchor jumps + offset for fixed header */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Push the document down so it doesn't slide under the fixed header */
+body.document {
+	padding-top: 0;
+	margin-top: var(--procat-header-h);
+}
+
+.section-heading,
+.clause-heading {
+	scroll-margin-top: calc(var(--procat-header-h) + 12px);
+}
+
+/* Fixed, full-width header across the viewport */
+.procat-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1200;
+
+	height: var(--procat-header-h);
+	background: var(--procat-brand);
+	color: #fff;
+	border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+.procat-header-inner {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	height: 100%;
+	padding: 0 1rem;
+}
+
+.procat-header-brandmark {
+	flex: 0 0 auto;
+}
+
+.procat-header-brandmark img {
+	height: 40px;
+	width: auto;
+	max-width: none;
+	display: block;
+}
+
+.procat-header-logo {
+	flex: 0 0 auto;
+}
+
+.procat-header-logo img {
+	min-height: 40px;
+	max-height: 40px;
+	width: auto;
+	/* keep aspect ratio */
+	max-width: none;
+	/* override global img { max-width:100% } */
+	display: block;
+}
+
+.procat-header-title,
+.procat-header-toggle {
+	font-weight: 600;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: 700;
+	color: #fff;
+	cursor: pointer;
+}
+
+/* Title absorbs pressure (shrinks/ellipses instead of the logo) */
+.procat-header-title {
+	flex: 1 1 auto;
+	/* let title take remaining space */
+	min-width: 0;
+	/* allow flex item to actually shrink */
+	white-space: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.procat-header-toggle {
+	box-sizing: border-box;
+	margin-left: auto;
+	padding: 0rem .6rem;
+	border-radius: 0px;
+	line-height: calc(var(--procat-header-h) - 8px);
+
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+	/* reserve space */
+	transition: border-color .18s ease;
+}
+
+.procat-header-toggle:hover {
+	border-bottom-color: #fff;
+	/* wide underline on hover */
+}
+
+/* keep underline when the drawer is open */
+#procat-menu-toggle:checked~header .procat-close {
+	border-bottom-color: #fff;
+}
+
+.procat-doc {
+	padding: 1.25rem;
+	padding-top: calc(var(--procat-header-h) + 1.25rem);
+}
+
+/* ====== One NAV for all modes ====== */
+.procat-toc {
+	background: var(--procat-panel);
+	border-right: 1px solid var(--procat-line);
+}
+
+/* Desktop & wide screens: left rail for ToC, page centered in remaining space */
+@media (min-width: 1000px) {
+
+	/* Reserve a fixed rail at the left edge of the viewport */
+	html {
+		display: grid;
+		grid-template-columns: var(--procat-toc-w) 1fr;
+		/* rail | main area */
+	}
+
+	/* The white page (your 960px body) lives in the main area and stays centered */
+	body.document {
+		grid-column: 2;
+		padding-top: 0;
+	}
+
+	/* Pin the ToC to the left edge of the screen */
+	#procat-toc {
+		position: fixed;
+		left: 0;
+		top: var(--procat-header-h);
+		bottom: 0;
+		width: var(--procat-toc-w);
+
+		background: var(--procat-panel);
+		border-right: 1px solid var(--procat-line);
+		padding: 1rem;
+
+		overflow: auto;
+		max-height: calc(100dvh - var(--procat-header-h));
+	}
+
+	/* Page content padding stays the same */
+	.procat-content {
+		padding: 1.25rem;
+	}
+
+	/* No hamburger on desktop */
+	.procat-header-toggle {
+		display: none;
+	}
+
+	.procat-header-brandmark {
+		display: none;
+	}
+}
+
+/* EXTRA-WIDE screens: put the ToC in the grey gutter (doesn't steal page width) */
+@media (min-width: 1288px) {
+
+	/* Stop using the 2-col grid; return to a single, centered page */
+	body.document {
+		display: block;
+		margin-top: calc(var(--procat-header-h) + var(--procat-top-gap));
+		margin-bottom: var(--procat-bottom-gap);
+	}
+
+	/* Fix the ToC in the left gutter next to the centered document */
+	#procat-toc {
+		position: fixed;
+		z-index: 2;
+		top: var(--procat-header-h);
+		width: var(--procat-toc-w);
+		max-height: calc(100dvh - var(--procat-header-h));
+		overflow: auto;
+
+		/* Panel styling in the gutter */
+		background: #fff;
+		border: 1px solid var(--procat-line);
+		border-right: 1px solid var(--procat-line);
+		/* keep visual if you like */
+		border-radius: 8px;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+		padding: 12px;
+	}
+
+	/* Content keeps its normal centered width/padding */
+	.procat-content {
+		padding: 1.25rem;
+	}
+}
+
+/* Mobile: off-canvas drawer (checkbox sibling) */
+@media (max-width: 999px) {
+	.procat-docswitcher {
+		display: none;
+	}
+
+	.procat-header-toggle {
+		display: inline-block;
+	}
+
+	#procat-toc {
+		position: fixed;
+		z-index: 1100;
+		top: var(--procat-header-h);
+		left: 0;
+		bottom: 0;
+		width: min(85vw, 360px);
+		background: var(--procat-panel);
+		border-right: 1px solid var(--procat-line);
+		transform: translateX(-100%);
+		transition: transform .22s ease;
+		overflow: auto;
+		padding: 1rem;
+	}
+
+	#procat-menu-toggle:checked~#procat-toc {
+		transform: translateX(0);
+	}
+
+	.procat-content {
+		padding: 1rem;
+	}
+
+	.procat-header-brandmark {
+		display: block !important;
+	}
+
+	.procat-header-logo {
+		display: none !important;
+	}
+}
+
+/* Print: expand ToC and hide header */
+@media print {
+
+	.procat-header,
+	.procat-header-toggle,
+	.procat-docswitcher {
+		display: none !important;
+	}
+
+	#procat-toc {
+		position: static;
+		border: 0;
+		padding: 0 0 1rem 0;
+		transform: none !important;
+	}
+
+	/* Force details to behave expanded in print */
+	#procat-toc details {
+		display: block;
+	}
+
+	#procat-toc details>summary {
+		font-weight: 700;
+		list-style: initial;
+	}
+
+	#procat-toc details>* {
+		display: block !important;
+	}
+
+	.procat-header-brandmark {
+		display: none !important;
+	}
+
+	.procat-header-logo {
+		display: block !important;
+	}
+}
+
+/* ====== Nav internals ====== */
+.toc-group {
+	margin-bottom: 1rem;
+}
+
+.toc-heading {
+	font-weight: 700;
+	margin-bottom: .25rem;
+	color: var(--procat-text);
+}
+
+.toc-links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.toc-links li a {
+	display: block;
+	padding: .28rem .45rem;
+	border-radius: 6px;
+	color: inherit;
+	text-decoration: none;
+}
+
+.toc-links li a:hover {
+	background: var(--procat-hover);
+}
+
+.toc-links li a.active {
+	font-weight: 600;
+	outline: 2px solid var(--procat-brand);
+	outline-offset: 0;
+}
+
+/* Summary styling */
+#procat-toc summary {
+	cursor: pointer;
+	padding: .4rem .25rem;
+	border-radius: 6px;
+}
+
+#procat-toc summary:hover {
+	background: var(--procat-hover);
+}
+
+/* Focus visibility */
+.procat-header-toggle:focus,
+.procat-docswitcher a:focus,
+.toc-links a:focus,
+#procat-toc summary:focus {
+	outline: 2px solid var(--procat-brand);
+	outline-offset: 2px;
+}
+
+/* Optional badge for deleted items */
+.badge-deleted {
+	display: inline-block;
+	margin-left: .35rem;
+	padding: .05rem .35rem;
+	font-size: .75em;
+	border-radius: 999px;
+	background: #f3d6d6;
+	color: #6b1212;
+}
+
+.is-deleted {
+	color: #6b1212;
+}

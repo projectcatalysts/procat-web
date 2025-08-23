@@ -1,0 +1,24 @@
+import [
+	html = "../scripts/html.mixt"
+	procat = "../scripts/procat.mixt"
+]
+
+{
+	slug = "/about/"
+	title = "About Project Catalysts"
+	body = [
+		procat::h1( "Overview" )
+		p = "We are engineers who remove friction. Small team, clean interfaces, auditable results."
+
+		procat::h1( "Approach" )
+		p = "We design pipelines where the structure is explicit and transformations are testable. MIXT keeps data and docs consistent across outputs (web, PDF, DOCX)."
+
+		procat::h1( "Principles" )
+		ul = [
+			"Prefer less complexity"
+			"Model first; code follows"
+			"Determinism over magic"
+			"Performance with measurement"
+		]
+	]
+}

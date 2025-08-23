@@ -1,0 +1,104 @@
+namespace html
+
+meta {
+}
+
+{
+	// html::href creates a href from an id and title
+	html::href = (id as text, title as text, prefix as text) => (
+		let
+			replaced_invalid = Text.Transform( title, ":(),", "" )
+			replaced_ampersand = Text.Transform( replaced_invalid, "&", "and" )
+			replaced_space = Text.Transform( replaced_ampersand, " .", "-" )
+			lcase = Text.Lower( replaced_space )
+		in
+			if id == "" then
+				$"$(prefix)$(lcase)"
+			else
+				$"$(prefix)$(id)-$(lcase)"
+	)
+
+	// html::attr is used to constuct a html attributes metadata
+	html::attr = (metadata as record) => {
+		html::attributes = metadata
+	}
+
+	// html::attributed is used to constuct a html attributes metadata
+	html::attributed = (metadata as record, value as any) => (
+		value meta {
+			html::attributes = metadata
+		}
+	)
+
+	// html::document is used to constuct a html document
+	html::document = (doctype as text, language as text, head as list, body as list) => (
+		{
+			html = {
+				html::attributes = {
+					lang = "en"
+				}
+			} @> {
+				head = head
+				body = body
+			}
+		}
+	)
+
+	// html::meta should only be used for fields named 'meta'
+	html::meta = ( charset as text ) => (
+		{
+			html::attributes = {
+				charset = "UTF-8"
+			}
+		} @> null
+	)
+
+	// html::link should only be used for fields named 'link'
+	html::link = (href as text, rel as text) => (
+		{
+			html::attributes = {
+				href = href
+				rel = rel
+			}
+		} @> null
+	)
+
+	// html::stylesheet should only be used for fields named 'link'
+	html::stylesheet = (href as text) => (
+		html::link( href, "stylesheet" )
+	)
+
+	// html::class is used to provide a class name to an HTML element
+	html::class = (className as text, content as any ) => (
+		{
+			html::attributes = {
+				class = className
+			}
+		} @> content
+	)
+
+	// html::copyright
+	html::copyright = (entity as text) => (
+		let
+			/*
+			year = DateTime.ToText(
+				DateTime.LocalNow()
+				"yyyy"
+			)
+			*/
+			year = "2025"
+			copyright = $"© $(year) $(entity)"
+		in
+			copyright
+	)
+
+	// html::link is used to provide a class name to an HTML element
+	html::styled_link = (href as text, className as text, content as any ) => (
+		{
+			html::attributes = {
+				href = href
+				class = className
+			}
+		} @> content
+	)
+}

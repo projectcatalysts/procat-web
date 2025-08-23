@@ -1,0 +1,49 @@
+import [
+	procat = "scripts/procat.mixt"
+	config = "config.mixt"
+]
+
+let
+	//selector = null
+	selector = (id as text) => true
+	//selector = (id as text) => (id == "Coexistence")
+
+	documentsTable = config{ navTable }
+	docSet = Table.ToRecords(
+		if selector == null then
+			documentsTable
+		else
+			Table.SelectRows(
+				documentsTable
+				(doc) => selector( doc{ id } )
+			)
+	)
+	written = List.Accumulate(
+		docSet
+		{}
+		( state, current, docIndex ) => (
+			let
+				docContent = current{ source }
+				result = Record.AddField(
+					state
+					current{ id }
+					File.Write(
+						FilePath.Join( current{ path }, current{ target } )
+						Html.FromValue(
+							procat::document(
+								current{ title }  // title
+								config{ tagline } // description
+								config{ siteOwner } // description
+								docContent
+								docIndex
+								docSet
+							)
+						)
+					)
+				)
+			in
+				result
+		)
+	)
+in
+	written

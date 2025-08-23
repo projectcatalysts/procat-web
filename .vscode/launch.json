@@ -1,0 +1,38 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Build HTML",
+			"type": "mixt",
+			"request": "launch",
+			"mode": "run",
+			"program": "${workspaceFolder}/src/build.mixt",
+			"mixtFlags": [
+				"--logNoPid",
+				"--logLevel",
+				"Info",
+				"--format",
+				"mixt",
+				"--pretty"
+			]
+		},
+		{
+			"name": "View MIXT Definition",
+			"type": "mixt",
+			"request": "launch",
+			"mode": "run",
+			"program": "${file}",
+			"mixtFlags": [
+				"--logNoPid",
+				"--logLevel",
+				"Info",
+				"--format",
+				"mixt",
+				"--pretty"
+			]
+		}
+	]
+}

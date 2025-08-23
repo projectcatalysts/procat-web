@@ -1,0 +1,247 @@
+namespace procat
+
+meta {
+}
+
+import [
+	html = "html.mixt"
+	nav = "nav.mixt"
+]
+
+{
+	// procat::document creates a procat document as HTML
+	procat::document = (
+		docTitle as text,
+		docDescription as text,
+		siteOwner as text,
+		docContent as list,
+		docIndex as number,
+		docSet as list
+	) => (
+		html::document(
+			"html",
+			"en",
+			// head (list)
+			[
+				;meta = html::meta( "UTF-8" )
+				;meta = html::attributed(
+					{
+						name = "viewport"
+						content = "width=device-width, initial-scale=1"
+					}
+					null
+				)
+				;meta = html::attributed(
+					{
+						name = "description"
+						content = docDescription
+					}
+					null
+				)
+				title = docTitle
+				link = html::stylesheet( "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" )
+				link = html::stylesheet( "assets/css/base.css" )
+				//link = html::stylesheet( "styles/nav.css" )
+			]
+
+			// body (list)
+			html::class(
+				"theme-dark"
+				[
+					header = nav::header( docTitle, docIndex, docSet )
+					//nav = nav::nav( docTitle, chaptersAndClauses, docIndex, docSet )
+					main = nav::main( siteOwner, docContent )
+				]
+			)
+		)
+	)
+
+	// procat::heading_1 creates a level 1 heading
+	procat::h1 = (heading as text) => #( h1 =
+		html::attributed(
+			{
+				id = html::href( "", heading, "" )
+				class = "heading-level1"
+			}
+			heading
+		)
+	)
+
+	// procat::h2 creates a level 2 heading
+	procat::h2 = (heading as any) => #( h2 = 
+		html::attributed(
+			{
+				id = html::href( "", heading, "" )
+				class = "heading-level2"
+			}
+			heading
+		)
+	)
+
+	// procat::xml creates xml formatted content
+	procat::xml = (...content as any) => #( div = 
+		html::class(
+			"xml-snippet"
+			content
+		)
+	)
+
+	procat::table = (content as table) => #( div =
+		{
+			html::attributes = {
+				class = "table-scroll"
+			}
+		} @> {
+			;table = html::class( "pnz-table", content )
+		}
+	)
+
+	procat::styled_table = (className as text, content as table) => #( div =
+		{
+			html::attributes = {
+				class = "table-scroll"
+			}
+		} @> {
+			;table = html::class(  $"pnz-table $(className)", content )
+		}
+	)	
+
+	procat::definition_table = (...content as list) => #( table = 
+		{
+			html::attributes = {
+				class = "table-scroll"
+			}
+		} @> {
+			;table = html::class(
+				"definition-table"
+				[
+					tbody = content
+				]
+			)
+		}
+	)
+
+	procat::br = #( br = null )
+
+	// procat::paragraph configures the content as a paragraph
+	procat::paragraph = (...content as any) => [
+		p = content
+	]
+
+	// procat::italic_div configures the content as a paragraph
+	procat::italic_div = (...content as any) => #( div =
+		html::class( "italic", content )
+	)
+
+	// procat::bold_div configures the content as a paragraph
+	procat::bold_div = (...content as any) => #( div =
+		html::class( "bold", content )
+	)
+
+	// procat::italic configures the content as a italic text
+	procat::italic = (content as text) => #( span =
+		html::class( "italic", content )
+	)
+
+	// procat::div configures the content as a paragraph
+	procat::div = (...content as any) => #( div =
+		content
+	)
+
+	// procat::italic_item configures the content as a italic text
+	procat::italic_item = (content as text) => #( li =
+		html::class( "italic", content )
+	)
+
+	// procat::bold configures the content as a bold text
+	procat::bold = (content as text) => #( span =
+		html::class( "bold", content )
+	)
+
+	// procat::bold_italic configures the content as a bold italic text
+	procat::bold_italic = (content as text) => #( span =
+		html::class( "bold italic", content )
+	)
+
+	// procat::text configures the content as normal text
+	procat::text = (content as text) => #( span = content )
+
+	// procat::rowspan adds a rowspan attribute to table data
+	procat::rowspan = (rowCount as UInt64.Type) => {
+		html::attributes = {
+			rowspan = rowCount
+		}
+	}
+
+	// procat::colspan adds a colspan attribute to table data
+	procat::colspan = (colCount as UInt64.Type) => {
+		html::attributes = {
+			colspan = colCount
+		}
+	}
+
+	// procat::rowcolspan adds a rowspan and colspan attribute to table data
+	procat::rowcolspan = (rowCount as UInt64.Type, colCount as UInt64.Type) => {
+		html::attributes = {
+			rowspan = rowCount
+			colspan = colCount
+		}
+	}
+
+	// procat::image inserts an image with alternate text
+	procat::image = (src as text, alt as text) => #( div =
+		html::class(
+			"diagram"
+			{
+				img = {
+					html::attributes = {
+						src = src
+						alt = alt
+					}
+				} @> ""
+			}
+		)
+	)
+
+	// procat::image inserts an image with alternate text
+	procat::logo = #( div =
+		html::class(
+			"logo"
+			{
+				img = {
+					html::attributes = {
+						src = "../images/PNZ_OnWhite_rgb.gif"
+						alt = "PNZ Logo"
+					}
+				} @> ""
+			}
+		)
+	)
+
+	// procat::bullets sets the style of content to a bulleted list
+	procat::bullets = (...content as any) => #( ul = 
+		html::class( "bullets", content )
+	)
+
+	// procat::list configures the content as a list
+	procat::list = (...content as any) => #( ul = content )
+
+	// procat::dashes sets the style of content to a bulleted list
+	procat::dashes = (...content as any) => #( ul = 
+		html::class( "dashes", content )
+	)
+
+	// procat::tick
+	procat::tick = {
+		html::attributes = {
+			class = "tick"
+		}
+	} @> "✓"
+
+	// procat::cross
+	procat::cross = {
+		html::attributes = {
+			class = "cross"
+		}
+	} @> "✘"
+}
