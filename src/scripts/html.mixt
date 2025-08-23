@@ -7,9 +7,9 @@ meta {
 	// html::href creates a href from an id and title
 	html::href = (id as text, title as text, prefix as text) => (
 		let
-			replaced_invalid = Text.Transform( title, ":(),", "" )
+			replaced_invalid = Text.Transform( title, ":(),.", "" )
 			replaced_ampersand = Text.Transform( replaced_invalid, "&", "and" )
-			replaced_space = Text.Transform( replaced_ampersand, " .", "-" )
+			replaced_space = Text.Transform( replaced_ampersand, " ", "-" )
 			lcase = Text.Lower( replaced_space )
 		in
 			if id == "" then

@@ -1,105 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Less complexity. More delivery. — Project Catalysts</title>
-    <link rel="icon" href="/assets/img/WheelCoverV2.jpg"/>
-    <link rel="stylesheet" href="/assets/css/base.css"/>
-    <meta name="description" content="We solve. We deliver."/>
-  </head>
-  <body class="theme-dark">
-
-    <!-- Mobile topbar -->
-    <header class="topbar mobile-only">
-      <div class="topbar-row">
-        <a class="brand" href="/">
-          <img src="/assets/img/WheelCoverV2.jpg" alt="Project Catalysts"/>
-          <span>Project Catalysts</span>
-        </a>
-        <button class="nav-toggle" aria-expanded="false" aria-controls="sidebar">
-          Menu
-        </button>
-      </div>
-    </header>
-
-    <div class="wrap">
-      <!-- Sidebar -->
-      <aside id="sidebar" class="sidebar">
-        <a class="brand desktop-only" href="/">
-          <img src="/assets/img/WheelCoverV2.jpg" alt="Project Catalysts"/>
-          <span>Project Catalysts</span>
-        </a>
-
-        <nav class="primary">
-          <a href="/">Home</a>
-          <a href="/about/">About</a>
-        </nav>
-
-        <nav class="sections">
-          <div class="section">
-            <a class="section-title" href="/#what">What we do</a>
-            <div class="children">
-              <a href="/#payments">Payments</a>
-              <a href="/#data">Data</a>
-              <a href="/#software">Software</a>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="Payments systems, enterprise data transformation, &amp; bespoke software — delivered fast, right, and maintainable."/>
+        <title>We solve. We deliver.</title>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap" rel="stylesheet"/>
+        <link href="/assets/css/base.css" rel="stylesheet"/>
+        <link rel="icon" href="/assets/images/procat_logo_white_onblack.png"/>
+    </head>
+    <body class="theme-dark">
+        <header class="topbar mobile-only" role="banner">
+            <div class="topbar-row">
+                <a class="brand" href="/">
+                    <img src="/assets/images/procat_banner_white_transparent.png" alt="Project Catalysts logo"/>
+                </a>
+                <label for="sidebar-toggle" class="nav-toggle" aria-controls="sidebar" role="button" tabindex="0">Contents</label>
             </div>
-          </div>
-          <div class="section">
-            <a class="section-title" href="/about/#overview">About</a>
-            <div class="children">
-              <a href="/about/#approach">Approach</a>
-              <a href="/about/#principles">Principles</a>
-            </div>
-          </div>
-        </nav>
-      </aside>
-
-      <!-- Main content -->
-      <main class="content">
-
-        <section class="hero">
-          <div class="hero-inner">
-            <h1>Less complexity. More delivery.</h1>
-            <p class="lead">
-              MIXT-powered engineering for payments systems, data transformation,
-              and bespoke software.
-            </p>
-          </div>
-        </section>
-
-        <section class="grid3">
-          <article class="card" id="payments">
-            <h3>Payments Systems</h3>
-            <p>ISO 20022, settlement flows, validation harnesses.</p>
-          </article>
-          <article class="card" id="data">
-            <h3>Enterprise Data Transformation</h3>
-            <p>Deterministic pipelines with strict schemas & reproducible builds.</p>
-          </article>
-          <article class="card" id="software">
-            <h3>Bespoke Software</h3>
-            <p>Go-first services, low-latency paths, clarity by design.</p>
-          </article>
-        </section>
-
-        <footer class="footer">
-          © 2025 Project Catalysts
-        </footer>
-      </main>
-    </div>
-
-    <script>
-      (function(){
-        var btn = document.querySelector('.nav-toggle');
-        if(!btn) return;
-        var sidebar = document.getElementById('sidebar');
-        btn.addEventListener('click', function(){
-          var open = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', !open);
-          sidebar.classList.toggle('open');
-        });
-      })();
-    </script>
-  </body>
+        </header>
+        <input type="checkbox" id="sidebar-toggle" class="nav-toggle-input" hidden/>
+        <div class="wrap">
+            <aside id="sidebar" class="sidebar">
+                <a class="brand desktop-only" href="/">
+                    <img src="/assets/images/procat_banner_white_transparent.png" alt="Project Catalysts logo"/>
+                </a>
+                <nav class="primary" aria-label="Primary">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                </nav>
+                <nav class="sections" aria-label="Sections">
+                    <div class="section">
+                        <a class="section-title" href="#what">What we do</a>
+                        <div class="children">
+                            <a href="#payments-systems">Payments</a>
+                            <a href="#enterprise-data-transformation">Data</a>
+                            <a href="#bespoke-software">Software</a>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <a class="section-title" href="/about/">About</a>
+                        <div class="children">
+                            <a href="/about/#approach">Approach</a>
+                            <a href="/about/#principles">Principles</a>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+            <main class="content">
+                <section class="hero">
+                    <div class="hero-inner">
+                        <h1 id="less-complexity-more-delivery" class="heading-level1">Less complexity. More delivery.</h1>
+                        <p class="lead">MIXT-powered engineering for payments systems, data transformation, and bespoke software.</p>
+                    </div>
+                </section>
+                <section id="what" class="grid3">
+                    <article class="card" id="payments-systems">
+                        <h2 class="heading-level2">Payments Systems</h2>
+                        <p>ISO 20022, settlement flows, validation harnesses.</p>
+                    </article>
+                    <article class="card" id="enterprise-data-transformation">
+                        <h2 class="heading-level2">Enterprise Data Transformation</h2>
+                        <p>Deterministic pipelines with strict schemas &amp; reproducible builds.</p>
+                    </article>
+                    <article class="card" id="bespoke-software">
+                        <h2 class="heading-level2">Bespoke Software</h2>
+                        <p>Go-first services, low-latency paths, clarity by design.</p>
+                    </article>
+                </section>
+                <footer class="footer">© 2025 Project Catalysts Ltd</footer>
+            </main>
+        </div>
+    </body>
 </html>

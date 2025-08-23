@@ -6,7 +6,7 @@ import [
 
 {
 	// nav::header
-	nav::header = (docTitle as text, docIndex as number, docSet as list) => html::attributed(
+	nav::header = (siteName as text, docTitle as text, docIndex as number, docSet as list) => html::attributed(
 		{
 			class = "topbar mobile-only"
 			role = "banner"
@@ -17,47 +17,169 @@ import [
 					class = "topbar-row"
 				}
 				[
+					/*
 					a = html::attributed(
 						{
 							class = "brand"
 							href = "/"
-							aria-label = "Payments NZ Home"
 						}
 						{
 							img = html::attributed(
 								{
-									src = "assets/images/"
+									src = "/assets/images/procat_logo_white_onblack.jpg"
+									alt = siteName & " logo"
+								}
+								null
+							)
+							span = docTitle
+						}
+					)
+					*/
+					a = html::attributed(
+						{
+							class = "brand"
+							href = "/"
+						}
+						{
+							img = html::attributed(
+								{
+									src = "/assets/images/procat_banner_white_transparent.png"
+									alt = siteName & " logo"
 								}
 								null
 							)
 						}
 					)
-					a = html::attributed(
-						{
-							class = "brand desktop-only"
-							href = "/"
-						}
-						{
-							img = html::attributed(
-								{
-									src = "assets/images/procat_logo_white_transparent.png"
-									alt = ""
-								}
-								docTitle
-							)
-						}
-					)
 					label = html::attributed(
 						{
-							for = "procat-menu-toggle"
-							class = "procat-header-toggle"
-           					aria-controls = "procat-toc"
+							for = "sidebar-toggle"
+							class = "nav-toggle"
+							aria-controls = "sidebar"
+							role = "button"
+							tabindex = "0"
 						}
 						"Contents"
 					)
 				]
 			)
 		}
+	)
+
+	// nav::sidebar
+	nav::sidebar = (siteName as text) => html::attributed(
+		{
+			id = "sidebar"
+			class = "sidebar"
+		}
+		[
+			a = html::attributed(
+				{
+					class = "brand desktop-only"
+					href = "/"
+				}
+				[
+					img = html::attributed(
+						{
+							src = "/assets/images/procat_banner_white_transparent.png"
+							alt = siteName & " logo"
+						}
+						null
+					)
+				]
+			)
+			nav = html::attributed(
+				{
+					class = "primary"
+					aria-label = "Primary"
+				}
+				[
+					a = html::attributed(
+						{
+							href = "/"
+						}
+						"Home"
+					)
+					a = html::attributed(
+						{
+							href = "/about/"
+						}
+						"About"
+					)
+				]
+			)
+			nav = html::attributed(
+				{
+					class = "sections"
+					aria-label = "Sections"
+				}						
+				[
+					div = html::class(
+						"section"
+						[
+							a = html::attributed(
+								{
+									class = "section-title"
+									href = "#what"
+								}
+								"What we do"
+							)
+							div = html::class(
+								"children"
+								[
+									a = html::attributed(
+										{
+											href = "#payments-systems"
+										}
+										"Payments"
+									)
+									a = html::attributed(
+										{
+											href = "#enterprise-data-transformation"
+										}
+										"Data"
+									)
+									a = html::attributed(
+										{
+											href = "#bespoke-software"
+										}
+										"Software"
+									)
+								]
+							)
+						]
+					)
+					div = html::class(
+						"section"
+						[
+							a = html::attributed(
+								{
+									class = "section-title"
+									href = "/about/"
+								}
+								"About"
+							)
+							div = html::class(
+								"children"
+								[
+									a = html::attributed(
+										{
+											href = "/about/#approach"
+										}
+										"Approach"
+									)
+									a = html::attributed(
+										{
+											href = "/about/#principles"
+										}
+										"Principles"
+									)
+								]
+							)								
+						]
+					)
+				]
+			)
+		]
 	)
 
 	// nav::nav

@@ -31,9 +31,8 @@ let
 						FilePath.Join( current{ path }, current{ target } )
 						Html.FromValue(
 							procat::document(
-								current{ title }  // title
-								config{ tagline } // description
-								config{ siteOwner } // description
+								config{ siteName }  // site name
+								config{ siteOwner } // site owner
 								docContent
 								docIndex
 								docSet

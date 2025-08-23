@@ -1,11 +1,12 @@
 import [
-	html = "../scripts/html.mixt"
-	procat = "../scripts/procat.mixt"
+	html = "../../scripts/html.mixt"
+	procat = "../../scripts/procat.mixt"
 ]
 
 {
 	slug = "/about/"
 	title = "About Project Catalysts"
+	description = ""
 	body = [
 		procat::h1( "Overview" )
 		p = "We are engineers who remove friction. Small team, clean interfaces, auditable results."

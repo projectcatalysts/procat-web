@@ -72,15 +72,17 @@ img {
 	margin-bottom: 16px;
 	text-decoration: none;
 	color: var(--ink);
-	font-weight: 700
+	font-weight: 700;
+	line-height: 1;
 }
 
 .brand img {
-	width: 36px;
-	height: 36px;
-	border-radius: 999px
+	max-height: 50px;
+	display: flex;
 }
-
+.brand {
+	margin-bottom: 0px;
+}
 
 /* nav */
 .primary a {
@@ -161,7 +163,8 @@ img {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px 12px
+	padding: 10px 12px;
+	min-height: 56px;
 }
 
 .nav-toggle {
@@ -210,5 +213,19 @@ img {
 
 	.wrap {
 		display: block
+	}
+
+	.sidebar {
+		position: fixed;
+		top: 56px; left: 0; bottom: 0;
+		width: 260px;
+		transform: translateX(-100%);
+		transition: transform .2s ease;
+		z-index: 1000;
+	}
+
+	/* when the checkbox is checked, slide the menu open */
+	.nav-toggle-input:checked ~ .wrap .sidebar {
+		transform: translateX(0);
 	}
 }

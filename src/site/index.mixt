@@ -5,26 +5,56 @@ import [
 
 {
 	slug = "/"
-	title = "Less complexity. More delivery."
-	body = [
-		"MIXT-powered engineering for payments systems, data transformation, and bespoke software."
-		procat::h1( "What we do" )
-		grid = [
+	title = "We solve. We deliver."
+	description = "Payments systems, enterprise data transformation, & bespoke software — delivered fast, right, and maintainable."
+	cards = #table(
+		[
+			"id"
+			"title"
+			"text"
+		]
+		[
 			[
-				id = "payments"
-				title = "Payments Systems"
-				;text = "ISO 20022, settlement flows, validation harnesses."
+				"payments"
+				"Payments Systems"
+				"ISO 20022, settlement flows, validation harnesses."
 			]
 			[
-				id = "data"
-				title = "Enterprise Data Transformation"
-				;text = "Deterministic pipelines with strict schemas & reproducible builds."
+				"data"
+				"Enterprise Data Transformation"
+				"Deterministic pipelines with strict schemas & reproducible builds."
 			]
 			[
-				id = "software"
-				title = "Bespoke Software"
-				;text = "Go-first services, low-latency paths, clarity by design."
+				"software"
+				"Bespoke Software"
+				"Go-first services, low-latency paths, clarity by design."
 			]
 		]
+	)
+	body = [
+		procat::hero(
+			"Less complexity. More delivery."
+			#(p = html::class(
+				"lead"
+				"MIXT-powered engineering for payments systems, data transformation, and bespoke software."
+			))
+		)
+
+		procat::cards(
+			"what" // id
+			List.Transform(
+				Table.ToRecords(cards)
+				(card as record) => #(article = html::attributed(
+					{
+						class = "card"
+						id = html::href( "", card{ title }, "" )
+					}
+					[
+						h2 = html::class( "heading-level2", card{ title } )
+						p = card{ text }
+					]
+				))
+			)
+		)
 	]
 }

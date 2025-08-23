@@ -11,8 +11,7 @@ import [
 {
 	// procat::document creates a procat document as HTML
 	procat::document = (
-		docTitle as text,
-		docDescription as text,
+		siteName as text,
 		siteOwner as text,
 		docContent as list,
 		docIndex as number,
@@ -34,23 +33,51 @@ import [
 				;meta = html::attributed(
 					{
 						name = "description"
-						content = docDescription
+						content = Record.FieldOrDefault( docContent, "description", "" )
 					}
 					null
 				)
-				title = docTitle
+				title = Record.FieldOrDefault( docContent, "title", "" )
 				link = html::stylesheet( "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" )
-				link = html::stylesheet( "assets/css/base.css" )
+				link = html::stylesheet( "/assets/css/base.css" )
 				//link = html::stylesheet( "styles/nav.css" )
+				link = html::attributed(
+					{
+						rel = "icon"
+						href = "/assets/images/procat_logo_white_onblack.png"
+					}
+					null
+				)
 			]
 
 			// body (list)
 			html::class(
 				"theme-dark"
 				[
-					header = nav::header( docTitle, docIndex, docSet )
-					//nav = nav::nav( docTitle, chaptersAndClauses, docIndex, docSet )
-					main = nav::main( siteOwner, docContent )
+					header = nav::header(
+						siteName
+						Record.FieldOrDefault( docContent, "title", "" )
+						docIndex
+						docSet
+					)
+					// Mobile toggle (checkbox/label)
+					input = html::attributed(
+						{
+							;type = "checkbox"
+							id = "sidebar-toggle"
+							class = "nav-toggle-input"
+							hidden = true
+						}
+						null
+					)					
+					div = html::class(
+						"wrap"
+						[
+							aside = nav::sidebar( siteName )
+							//nav = nav::nav( docTitle, chaptersAndClauses, docIndex, docSet )
+							main = nav::main( siteOwner, docContent )
+						]
+					)
 				]
 			)
 		)
@@ -73,6 +100,17 @@ import [
 			{
 				id = html::href( "", heading, "" )
 				class = "heading-level2"
+			}
+			heading
+		)
+	)
+
+	// procat::h3 creates a level 3 heading
+	procat::h3 = (heading as any) => #( h3 = 
+		html::attributed(
+			{
+				id = html::href( "", heading, "" )
+				class = "heading-level3"
 			}
 			heading
 		)
@@ -124,9 +162,7 @@ import [
 	procat::br = #( br = null )
 
 	// procat::paragraph configures the content as a paragraph
-	procat::paragraph = (...content as any) => [
-		p = content
-	]
+	procat::p = (...content as any) => #(p = content)
 
 	// procat::italic_div configures the content as a paragraph
 	procat::italic_div = (...content as any) => #( div =
@@ -244,4 +280,28 @@ import [
 			class = "cross"
 		}
 	} @> "✘"
+
+	// procat::hero
+	procat::hero = ( heading as text, ...content ) => #(section = html::class(
+		"hero"
+		[
+			div = html::class(
+				"hero-inner"
+				[
+					procat::h1( heading )
+				] & content
+			)
+		]
+	))
+
+	// procat::cards
+	procat::cards = ( id as text, cards as list ) => #(section = 
+		html::attributed(
+			{
+				id = id
+				class = "grid3"
+			}
+			cards
+		)
+	)
 }

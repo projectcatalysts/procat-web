@@ -1,109 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>About Project Catalysts — Project Catalysts</title>
-    <link rel="icon" href="/assets/img/WheelCoverV2.jpg"/>
-    <link rel="stylesheet" href="/assets/css/base.css"/>
-    <meta name="description" content="We solve. We deliver."/>
-  </head>
-  <body class="theme-dark">
-
-    <!-- Mobile topbar -->
-    <header class="topbar mobile-only">
-      <div class="topbar-row">
-        <a class="brand" href="/">
-          <img src="/assets/img/WheelCoverV2.jpg" alt="Project Catalysts"/>
-          <span>Project Catalysts</span>
-        </a>
-        <button class="nav-toggle" aria-expanded="false" aria-controls="sidebar">
-          Menu
-        </button>
-      </div>
-    </header>
-
-    <div class="wrap">
-      <!-- Sidebar -->
-      <aside id="sidebar" class="sidebar">
-        <a class="brand desktop-only" href="/">
-          <img src="/assets/img/WheelCoverV2.jpg" alt="Project Catalysts"/>
-          <span>Project Catalysts</span>
-        </a>
-
-        <nav class="primary">
-          <a href="/">Home</a>
-          <a href="/about/">About</a>
-        </nav>
-
-        <nav class="sections">
-          <div class="section">
-            <a class="section-title" href="/#what">What we do</a>
-            <div class="children">
-              <a href="/#payments">Payments</a>
-              <a href="/#data">Data</a>
-              <a href="/#software">Software</a>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <title>About Project Catalysts</title>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap" rel="stylesheet"/>
+        <link href="/assets/css/base.css" rel="stylesheet"/>
+        <link rel="icon" href="/assets/images/procat_logo_white_onblack.png"/>
+    </head>
+    <body class="theme-dark">
+        <header class="topbar mobile-only" role="banner">
+            <div class="topbar-row">
+                <a class="brand" href="/">
+                    <img src="/assets/images/procat_banner_white_transparent.png" alt="Project Catalysts logo"/>
+                </a>
+                <label for="sidebar-toggle" class="nav-toggle" aria-controls="sidebar" role="button" tabindex="0">Contents</label>
             </div>
-          </div>
-          <div class="section">
-            <a class="section-title" href="/about/#overview">About</a>
-            <div class="children">
-              <a href="/about/#approach">Approach</a>
-              <a href="/about/#principles">Principles</a>
-            </div>
-          </div>
-        </nav>
-      </aside>
-
-      <!-- Main content -->
-      <main class="content">
-
-        <h1>About Project Catalysts</h1>
-
-        <section id="overview">
-          <h2>Overview</h2>
-          <p>
-            We are engineers who remove friction. Small team, clean interfaces,
-            auditable results.
-          </p>
-        </section>
-
-        <section id="approach">
-          <h2>Approach</h2>
-          <p>
-            We design pipelines where the structure is explicit and transformations are
-            testable. MIXT keeps data and docs consistent across outputs
-            (web, PDF, DOCX).
-          </p>
-        </section>
-
-        <section id="principles">
-          <h2>Principles</h2>
-          <ul>
-            <li>Prefer less complexity</li>
-            <li>Model first; code follows</li>
-            <li>Determinism over magic</li>
-            <li>Performance with measurement</li>
-          </ul>
-        </section>
-
-        <footer class="footer">
-          © 2025 Project Catalysts
-        </footer>
-      </main>
-    </div>
-
-    <script>
-      (function(){
-        var btn = document.querySelector('.nav-toggle');
-        if(!btn) return;
-        var sidebar = document.getElementById('sidebar');
-        btn.addEventListener('click', function(){
-          var open = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', !open);
-          sidebar.classList.toggle('open');
-        });
-      })();
-    </script>
-  </body>
+        </header>
+        <input type="checkbox" id="sidebar-toggle" class="nav-toggle-input" hidden/>
+        <div class="wrap">
+            <aside id="sidebar" class="sidebar">
+                <a class="brand desktop-only" href="/">
+                    <img src="/assets/images/procat_banner_white_transparent.png" alt="Project Catalysts logo"/>
+                </a>
+                <nav class="primary" aria-label="Primary">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                </nav>
+                <nav class="sections" aria-label="Sections">
+                    <div class="section">
+                        <a class="section-title" href="#what">What we do</a>
+                        <div class="children">
+                            <a href="#payments-systems">Payments</a>
+                            <a href="#enterprise-data-transformation">Data</a>
+                            <a href="#bespoke-software">Software</a>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <a class="section-title" href="/about/">About</a>
+                        <div class="children">
+                            <a href="/about/#approach">Approach</a>
+                            <a href="/about/#principles">Principles</a>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+            <main class="content">
+                <h1 id="overview" class="heading-level1">Overview</h1>
+                <p>We are engineers who remove friction. Small team, clean interfaces, auditable results.</p>
+                <h1 id="approach" class="heading-level1">Approach</h1>
+                <p>We design pipelines where the structure is explicit and transformations are testable. MIXT keeps data and docs consistent across outputs (web, PDF, DOCX).</p>
+                <h1 id="principles" class="heading-level1">Principles</h1>
+                <ul>
+                    <li>Prefer less complexity</li>
+                    <li>Model first; code follows</li>
+                    <li>Determinism over magic</li>
+                    <li>Performance with measurement</li>
+                </ul>
+                <footer class="footer">© 2025 Project Catalysts Ltd</footer>
+            </main>
+        </div>
+    </body>
 </html>

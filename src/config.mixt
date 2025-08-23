@@ -1,13 +1,12 @@
 import [
 	index = "site/index.mixt"
-	about = "site/about.mixt"
+	about = "site/about/index.mixt"
 ]
 
 {
-	title = "Project Catalysts"
-	//tagline = "Payments systems, enterprise data transformation, & bespoke software — delivered fast, right, and maintainable."
 	tagline = "We solve. We deliver."
 	siteOwner = "Project Catalysts Ltd"
+	siteName = "Project Catalysts"
 	baseUrl = "https://projectcatalysts.com"
 	navTable = #table(
 		[
@@ -28,8 +27,8 @@ import [
 			[
 				"about"
 				"About"
-				"about.html"
-				"dist/"
+				"index.html"
+				"dist/about"
 				about
 			]
 		]
