@@ -40,7 +40,6 @@ import [
 				title = Record.FieldOrDefault( docContent, "title", "" )
 				link = html::stylesheet( "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" )
 				link = html::stylesheet( "/assets/css/base.css" )
-				//link = html::stylesheet( "styles/nav.css" )
 				link = html::attributed(
 					{
 						rel = "icon"
@@ -48,11 +47,18 @@ import [
 					}
 					null
 				)
+				script =  html::attributed(
+					{
+						src = "/assets/scripts/nav.js"
+						defer = true
+					}
+					""
+				)
 			]
 
 			// body (list)
 			html::class(
-				"theme-dark"
+				"document theme-dark"
 				[
 					header = nav::header(
 						siteName

@@ -1,3 +1,11 @@
+@font-face {
+	font-family: 'Acens';
+	src: url('/assets/fonts/acens.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap; /* ensures fallback while loading */
+}  
+
 :root {
 	--bg: #0b0b0d;
 	--panel: #111216;
@@ -5,7 +13,9 @@
 	--muted: #9aa3ad;
 	--line: #23252b;
 	--accent: #e86e01;
-	/* optional: echo logo warmth */
+
+	/* height of header */
+	--procat-header-height: 64px;
 }
 
 * {
@@ -74,14 +84,13 @@ img {
 	color: var(--ink);
 	font-weight: 700;
 	line-height: 1;
+	margin-bottom: 0px;
+	margin: 0 auto;              /* center the logo horizontally */
 }
 
 .brand img {
 	max-height: 50px;
 	display: flex;
-}
-.brand {
-	margin-bottom: 0px;
 }
 
 /* nav */
@@ -102,24 +111,24 @@ img {
 
 .section-title {
 	display: block;
-	color: var(--muted);
+	font-family: 'Acens', system-ui, sans-serif;	
+	font-size: 14px;
+	color: var(--ink);
 	text-transform: uppercase;
-	font-size: 12px;
 	letter-spacing: .06em;
 	margin-bottom: 4px
 }
 
-.children a {
+.section-content a {
 	display: block;
 	padding: 6px 0;
 	color: var(--ink);
 	text-decoration: none
 }
 
-.children a:hover {
+.section-content a:hover {
 	color: var(--accent)
 }
-
 
 /* hero & cards */
 .hero {
@@ -152,11 +161,17 @@ img {
 	margin-top: 0
 }
 
-
 /* topbar (mobile) */
+
 .topbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1200;	
+	height: var(--hvcs-header-h);
 	background: var(--panel);
-	border-bottom: 1px solid var(--line)
+	border-bottom: 1px solid var(--line);
 }
 
 .topbar-row {
@@ -165,6 +180,7 @@ img {
 	justify-content: space-between;
 	padding: 10px 12px;
 	min-height: 56px;
+	position: relative;          /* so we can absolutely place the toggle */
 }
 
 .nav-toggle {
@@ -172,7 +188,9 @@ img {
 	color: var(--ink);
 	border: 1px solid var(--line);
 	border-radius: 8px;
-	padding: 6px 10px
+	padding: 6px 10px;
+	position: absolute;
+	right: 12px;                 /* pin to the right edge */	
 }
 
 
@@ -186,6 +204,12 @@ img {
 }
 
 @media (max-width: 900px) {
+	/* Push the document down so it doesn't slide under the fixed header */
+	body.document {
+		padding-top: 0;
+		margin-top: var(--procat-header-height);
+	}
+
 	.sidebar {
 		position: fixed;
 		left: 0;

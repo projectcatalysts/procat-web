@@ -124,7 +124,7 @@ import [
 								"What we do"
 							)
 							div = html::class(
-								"children"
+								"section-content"
 								[
 									a = html::attributed(
 										{
@@ -159,7 +159,7 @@ import [
 								"About"
 							)
 							div = html::class(
-								"children"
+								"section-content"
 								[
 									a = html::attributed(
 										{
