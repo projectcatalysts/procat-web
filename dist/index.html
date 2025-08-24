@@ -5,46 +5,58 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="description" content="Payments systems, enterprise data transformation, &amp; bespoke software — delivered fast, right, and maintainable."/>
         <title>We solve. We deliver.</title>
+        <link rel="preload" href="/assets/fonts/acens.ttf" as="font" type="font/ttf" crossorigin/>
+        <link rel="preload" href="/assets/images/procat_banner_white_transparent.png" as="image"/>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap" rel="stylesheet"/>
         <link href="/assets/css/base.css" rel="stylesheet"/>
         <link rel="icon" href="/assets/images/procat_logo_white_onblack.png"/>
         <script src="/assets/scripts/nav.js" defer></script>
     </head>
     <body class="document theme-dark">
+        <input type="checkbox" id="sidebar-toggle" class="nav-toggle-input" hidden/>
         <header class="topbar mobile-only" role="banner">
             <div class="topbar-row">
+                <div class="topbar-spacer">Contents</div>
                 <a class="brand" href="/">
                     <img src="/assets/images/procat_banner_white_transparent.png" alt="Project Catalysts logo"/>
                 </a>
-                <label for="sidebar-toggle" class="nav-toggle" aria-controls="sidebar" role="button" tabindex="0">Contents</label>
+                <label for="sidebar-toggle" class="topbar-nav-toggle" aria-controls="sidebar" role="button" tabindex="0">Contents</label>
             </div>
         </header>
-        <input type="checkbox" id="sidebar-toggle" class="nav-toggle-input" hidden/>
         <div class="wrap">
             <aside id="sidebar" class="sidebar">
                 <a class="brand desktop-only" href="/">
-                    <img src="/assets/images/procat_banner_white_transparent.png" alt="Project Catalysts logo"/>
+                    <img src="/assets/images/procat_banner_white_transparent.png" alt="Project Catalysts banner"/>
                 </a>
-                <nav class="primary" aria-label="Primary">
-                    <a href="/">Home</a>
-                    <a href="/about/">About</a>
-                </nav>
-                <nav class="sections" aria-label="Sections">
-                    <div class="section">
-                        <a class="section-title" href="#what">What we do</a>
-                        <div class="section-content">
-                            <a href="#payments-systems">Payments</a>
-                            <a href="#enterprise-data-transformation">Data</a>
-                            <a href="#bespoke-software">Software</a>
-                        </div>
-                    </div>
-                    <div class="section">
-                        <a class="section-title" href="/about/">About</a>
-                        <div class="section-content">
-                            <a href="/about/#approach">Approach</a>
-                            <a href="/about/#principles">Principles</a>
-                        </div>
-                    </div>
+                <nav class="toc" aria-label="Site navigation">
+                    <details class="toc-group" data-page="home" open>
+                        <summary class="toc-heading">Home</summary>
+                        <ul class="toc-links">
+                            <li>
+                                <a href="/#payments-systems">Payments</a>
+                            </li>
+                            <li>
+                                <a href="/#enterprise-data-transformation">Data</a>
+                            </li>
+                            <li>
+                                <a href="/#bespoke-software">Software</a>
+                            </li>
+                        </ul>
+                    </details>
+                    <details class="toc-group" data-page="home">
+                        <summary class="toc-heading">About</summary>
+                        <ul class="toc-links">
+                            <li>
+                                <a href="/about/#">Overview</a>
+                            </li>
+                            <li>
+                                <a href="/about/#approach">Approach</a>
+                            </li>
+                            <li>
+                                <a href="/about/#principles">Principles</a>
+                            </li>
+                        </ul>
+                    </details>
                 </nav>
             </aside>
             <main class="content">

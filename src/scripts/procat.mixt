@@ -38,6 +38,24 @@ import [
 					null
 				)
 				title = Record.FieldOrDefault( docContent, "title", "" )
+				link = html::attributed(
+					{
+						rel = "preload"
+						href = "/assets/fonts/acens.ttf"
+						as = "font"
+						type = "font/ttf"
+						crossorigin = true
+					}
+					null
+				)
+				link = html::attributed(
+					{
+						rel = "preload"
+						href = "/assets/images/procat_banner_white_transparent.png"
+						as = "image"
+					}
+					null
+				)
 				link = html::stylesheet( "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" )
 				link = html::stylesheet( "/assets/css/base.css" )
 				link = html::attributed(
@@ -60,13 +78,8 @@ import [
 			html::class(
 				"document theme-dark"
 				[
-					header = nav::header(
-						siteName
-						Record.FieldOrDefault( docContent, "title", "" )
-						docIndex
-						docSet
-					)
 					// Mobile toggle (checkbox/label)
+					// CSS requires this to be position before header
 					input = html::attributed(
 						{
 							;type = "checkbox"
@@ -76,10 +89,16 @@ import [
 						}
 						null
 					)					
+					header = nav::header(
+						siteName
+						Record.FieldOrDefault( docContent, "title", "" )
+						docIndex
+						docSet
+					)
 					div = html::class(
 						"wrap"
 						[
-							aside = nav::sidebar( siteName )
+							aside = nav::sidebar( siteName, docIndex )
 							//nav = nav::nav( docTitle, chaptersAndClauses, docIndex, docSet )
 							main = nav::main( siteOwner, docContent )
 						]

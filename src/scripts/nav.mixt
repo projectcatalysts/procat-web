@@ -17,24 +17,7 @@ import [
 					class = "topbar-row"
 				}
 				[
-					/*
-					a = html::attributed(
-						{
-							class = "brand"
-							href = "/"
-						}
-						{
-							img = html::attributed(
-								{
-									src = "/assets/images/procat_logo_white_onblack.jpg"
-									alt = siteName & " logo"
-								}
-								null
-							)
-							span = docTitle
-						}
-					)
-					*/
+					div = html::class( "topbar-spacer", "Contents" )
 					a = html::attributed(
 						{
 							class = "brand"
@@ -53,7 +36,7 @@ import [
 					label = html::attributed(
 						{
 							for = "sidebar-toggle"
-							class = "nav-toggle"
+							class = "topbar-nav-toggle"
 							aria-controls = "sidebar"
 							role = "button"
 							tabindex = "0"
@@ -66,7 +49,7 @@ import [
 	)
 
 	// nav::sidebar
-	nav::sidebar = (siteName as text) => html::attributed(
+	nav::sidebar = (siteName as text, pageIndex as number) => html::attributed(
 		{
 			id = "sidebar"
 			class = "sidebar"
@@ -81,7 +64,7 @@ import [
 					img = html::attributed(
 						{
 							src = "/assets/images/procat_banner_white_transparent.png"
-							alt = siteName & " logo"
+							alt = siteName & " banner"
 						}
 						null
 					)
@@ -89,92 +72,92 @@ import [
 			)
 			nav = html::attributed(
 				{
-					class = "primary"
-					aria-label = "Primary"
+					class = "toc"
+					aria-label = "Site navigation"
 				}
 				[
-					a = html::attributed(
+					details = html::attributed(
 						{
-							href = "/"
+							class = "toc-group"
+							data-page = "home"
+							open = (pageIndex == 0)
 						}
-						"Home"
-					)
-					a = html::attributed(
-						{
-							href = "/about/"
-						}
-						"About"
-					)
-				]
-			)
-			nav = html::attributed(
-				{
-					class = "sections"
-					aria-label = "Sections"
-				}						
-				[
-					div = html::class(
-						"section"
 						[
-							a = html::attributed(
-								{
-									class = "section-title"
-									href = "#what"
-								}
-								"What we do"
+							summary = html::class(
+								"toc-heading"
+								"Home"
 							)
-							div = html::class(
-								"section-content"
+							ul = html::class(
+								"toc-links"
 								[
-									a = html::attributed(
-										{
-											href = "#payments-systems"
-										}
-										"Payments"
-									)
-									a = html::attributed(
-										{
-											href = "#enterprise-data-transformation"
-										}
-										"Data"
-									)
-									a = html::attributed(
-										{
-											href = "#bespoke-software"
-										}
-										"Software"
-									)
+									[
+										a = html::attributed(
+											{
+												href = "/#payments-systems"
+											}
+											"Payments"
+										)
+									]
+									[
+										a = html::attributed(
+											{
+												href = "/#enterprise-data-transformation"
+											}
+											"Data"
+										)
+									]
+									[
+										a = html::attributed(
+											{
+												href = "/#bespoke-software"
+											}
+											"Software"
+										)
+									]
 								]
 							)
 						]
 					)
-					div = html::class(
-						"section"
+					details = html::attributed(
+						{
+							class = "toc-group"
+							data-page = "home"
+							open = (pageIndex == 1)
+						}						
 						[
-							a = html::attributed(
-								{
-									class = "section-title"
-									href = "/about/"
-								}
+							summary = html::class(
+								"toc-heading"
 								"About"
 							)
-							div = html::class(
-								"section-content"
+							ul = html::class(
+								"toc-links"
 								[
-									a = html::attributed(
-										{
-											href = "/about/#approach"
-										}
-										"Approach"
-									)
-									a = html::attributed(
-										{
-											href = "/about/#principles"
-										}
-										"Principles"
-									)
+									[
+										a = html::attributed(
+											{
+												href = "/about/#"
+											}
+											"Overview"
+										)
+									]									
+									[
+										a = html::attributed(
+											{
+												href = "/about/#approach"
+											}
+											"Approach"
+										)
+									]
+									[
+										a = html::attributed(
+											{
+												href = "/about/#principles"
+											}
+											"Principles"
+										)
+									]
 								]
-							)								
+							)
 						]
 					)
 				]

@@ -1,11 +1,13 @@
+/* ========== Fonts ========== */
 @font-face {
 	font-family: 'Acens';
 	src: url('/assets/fonts/acens.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
-	font-display: swap; /* ensures fallback while loading */
-}  
+	font-display: swap;
+}
 
+/* ========== Theme variables ========== */
 :root {
 	--bg: #0b0b0d;
 	--panel: #111216;
@@ -13,39 +15,57 @@
 	--muted: #9aa3ad;
 	--line: #23252b;
 	--accent: #e86e01;
-
-	/* height of header */
+	/* mobile header height */
 	--procat-header-height: 64px;
+	/* */
+	--gutter: 12px;
+	/* fallback for first paint */	
+	--toggle-w: 120px;
 }
 
+/* ========== Resets / base ========== */
 * {
-	box-sizing: border-box
+	box-sizing: border-box;
+}
+
+/* Any element that can be a scroll target */
+[id] {
+	scroll-margin-top: var(--procat-header-height);
 }
 
 html,
 body {
-	height: 100%
+	height: 100%;
 }
 
 body {
 	margin: 0;
 	background: var(--bg);
 	color: var(--ink);
-	font: 16px/1.5 system-ui, Segoe UI, Roboto, Arial
+	font: 16px/1.5 system-ui, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 img {
 	max-width: 100%;
-	display: block
+	display: block;
 }
 
+a {
+	color: inherit;
+}
 
-/* layout */
+/* Smooth in-page anchor jumps */
+html {
+	scroll-behavior: smooth;
+}
+
+/* ========== Layout ========== */
 .wrap {
 	display: flex;
-	min-height: 100vh
+	min-height: 100vh;
 }
 
+/* Left rail / sidebar (desktop; mobile overrides below) */
 .sidebar {
 	width: 260px;
 	background: var(--panel);
@@ -56,120 +76,154 @@ img {
 	align-self: flex-start;
 	height: 100vh;
 	overflow: auto;
-	transform: translateX(0)
 }
 
+/* Main content */
 .content {
 	flex: 1;
 	max-width: 920px;
 	padding: 32px 24px;
-	margin: 0 auto
+	margin: 0 auto;
 }
 
 .footer {
 	margin-top: 48px;
 	padding-top: 24px;
 	border-top: 1px solid var(--line);
-	color: var(--muted)
+	color: var(--muted);
 }
 
-
-/* brand */
+/* ========== Brand (logo/banner links) ========== */
 .brand {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: 10px;
-	margin-bottom: 16px;
+	margin: 0 0 16px 0;
 	text-decoration: none;
 	color: var(--ink);
 	font-weight: 700;
 	line-height: 1;
-	margin-bottom: 0px;
-	margin: 0 auto;              /* center the logo horizontally */
 }
 
 .brand img {
-	max-height: 50px;
-	display: flex;
+	max-height: calc( var(--procat-header-height) - 8px );
+	height: auto;
 }
 
-/* nav */
-.primary a {
-	display: block;
-	padding: 8px 0;
-	color: var(--ink);
-	text-decoration: none
+/* ========== Unified collapsible sidebar nav ========== */
+.toc {
+	margin-top: 16px;
 }
 
-.primary a:hover {
-	color: var(--accent)
+.toc-group {
+	margin: 0 0 12px 0;
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	background: var(--panel);
 }
 
-.sections .section {
-	margin-top: 16px
-}
-
-.section-title {
-	display: block;
-	font-family: 'Acens', system-ui, sans-serif;	
+/* Top-level headings (use Acens) */
+.toc-heading {
+	list-style: none;
+	font-family: 'Acens', system-ui, sans-serif;
 	font-size: 14px;
-	color: var(--ink);
-	text-transform: uppercase;
 	letter-spacing: .06em;
-	margin-bottom: 4px
-}
-
-.section-content a {
-	display: block;
-	padding: 6px 0;
+	text-transform: uppercase;
 	color: var(--ink);
-	text-decoration: none
+	padding: 10px 10px;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
-.section-content a:hover {
-	color: var(--accent)
+.toc-heading::-webkit-details-marker {
+	display: none;
 }
 
-/* hero & cards */
+/* Caret */
+.toc-heading::after {
+	content: '▸';
+	opacity: .7;
+	transition: transform .18s ease;
+}
+
+.toc-group[open]>.toc-heading::after {
+	transform: rotate(90deg);
+}
+
+/* Links inside sections */
+.toc-links {
+	list-style: none;
+	margin: 0;
+	padding: 6px 8px 10px 8px;
+}
+
+.toc-links li {
+	margin: 0;
+}
+
+.toc-links a {
+	display: block;
+	padding: 6px 8px;
+	text-decoration: none;
+	/* no underline */
+	border-radius: 6px;
+	color: var(--ink);
+}
+
+.toc-links a:hover {
+	background: rgba(255, 255, 255, .04);
+	color: var(--accent);
+}
+
+/* Back-compat alias (if HTML uses .section-content) */
+.section-content a {
+	text-decoration: none;
+}
+
+/* ========== Hero & cards (home) ========== */
 .hero {
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 60%);
+	background: linear-gradient(180deg, rgba(255, 255, 255, .03), transparent 60%);
 	border: 1px solid var(--line);
 	border-radius: 14px;
 	padding: 24px 20px;
-	margin-bottom: 24px
+	margin-bottom: 24px;
 }
 
 .hero .lead {
 	color: var(--muted);
-	max-width: 60ch
+	max-width: 60ch;
 }
 
 .grid3 {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 16px
+	gap: 16px;
 }
 
 .card {
 	background: var(--panel);
 	border: 1px solid var(--line);
 	border-radius: 12px;
-	padding: 16px
+	padding: 16px;
 }
 
+.card h2,
 .card h3 {
-	margin-top: 0
+	margin-top: 0;
 }
 
-/* topbar (mobile) */
-
+/* ========== Mobile header (fixed) ========== */
 .topbar {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	z-index: 1200;	
-	height: var(--hvcs-header-h);
+	z-index: 1200;
+	height: var(--procat-header-height);
 	background: var(--panel);
 	border-bottom: 1px solid var(--line);
 }
@@ -177,79 +231,127 @@ img {
 .topbar-row {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 10px 12px;
-	min-height: 56px;
-	position: relative;          /* so we can absolutely place the toggle */
+	justify-content: center;
+	min-height: var(--procat-header-height);
+	padding: 0px 12px;
+	position: relative;
 }
 
-.nav-toggle {
+/* Brand stays centered; shrink if needed to avoid the button */
+.brand {
+	flex: 1 1 auto;
+	display: flex;
+	justify-content: center;
+	line-height: var(--procat-header-height);
+	/* critical: allows flex shrink */
+	min-width: 0;
+	margin-bottom: 0px;
+}
+
+.topbar-row .brand img {
+	display: block;
+	height: auto;
+	max-height: calc( var(--procat-header-height) - 8px );
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+	/* keep aspect */
+	object-fit: contain;
+}
+
+.topbar-spacer {
+	visibility: hidden;
+	flex: 0 2 auto;
+	margin-right: auto;
 	background: transparent;
 	color: var(--ink);
 	border: 1px solid var(--line);
 	border-radius: 8px;
 	padding: 6px 10px;
-	position: absolute;
-	right: 12px;                 /* pin to the right edge */	
+	box-shadow: 0 2px 4px rgba(0,0,0,.25);
+	min-width: 0px;
 }
 
+.topbar-nav-toggle {
+	flex: 0 0 auto;
+	margin-left: auto;
+	background: transparent;
+	color: var(--ink);
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	padding: 6px 10px;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0,0,0,.25);
+}
 
-/* responsive */
+.topbar-nav-toggle:hover {
+	background: rgba(255,255,255,.05);
+}
+
+/* When the sidebar toggle checkbox is checked */
+.nav-toggle-input:checked ~ .topbar .topbar-nav-toggle {
+	color: #fff;
+	border-color: var(--accent);
+	background: rgba(255,255,255,.05);
+	box-shadow: inset 0 2px 4px rgba(0,0,0,.5); /* pressed look */
+	transform: translateY(1px);                  /* shift down 1px */
+}
+
+/* ========== Responsive / mobile drawer mechanics ========== */
 .mobile-only {
-	display: none
+	display: none;
 }
 
 .desktop-only {
-	display: block
+	display: block;
 }
 
-@media (max-width: 900px) {
-	/* Push the document down so it doesn't slide under the fixed header */
+@media (max-width:900px) {
+
+	/* Push content below fixed header */
 	body.document {
-		padding-top: 0;
 		margin-top: var(--procat-header-height);
 	}
 
-	.sidebar {
-		position: fixed;
-		left: 0;
-		top: 48px;
-		bottom: 0;
-		transform: translateX(-100%);
-		transition: transform .2s ease
-	}
-
-	.sidebar.open {
-		transform: translateX(0)
-	}
-
-	.content {
-		padding: 20px 16px
-	}
-
-	.mobile-only {
-		display: block
-	}
-
-	.desktop-only {
-		display: none
-	}
-
 	.wrap {
-		display: block
+		display: block;
 	}
 
 	.sidebar {
 		position: fixed;
-		top: 56px; left: 0; bottom: 0;
+		top: var(--procat-header-height);
+		/* ensure the sidebat fills the rest of the viewport but not under the header */
+		height: calc(100vh - var(--procat-header-height));
+		left: 0;
+		bottom: 0;
 		width: 260px;
 		transform: translateX(-100%);
 		transition: transform .2s ease;
 		z-index: 1000;
+		border-right: 1px solid var(--line);
+		overflow: auto;
 	}
 
-	/* when the checkbox is checked, slide the menu open */
-	.nav-toggle-input:checked ~ .wrap .sidebar {
+	/* checkbox-controlled open state */
+	.nav-toggle-input:checked~.wrap .sidebar {
 		transform: translateX(0);
+	}
+
+	.mobile-only {
+		display: block;
+	}
+
+	.desktop-only {
+		display: none;
+	}
+}
+
+@media (min-width:901px) {
+	.mobile-only {
+		display: none;
+	}
+
+	.desktop-only {
+		display: block;
 	}
 }
