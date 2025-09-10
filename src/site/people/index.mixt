@@ -1,0 +1,90 @@
+import [
+	html = "../../scripts/html.mixt"
+	procat = "../../scripts/procat.mixt"
+]
+
+{
+	slug = "/people/"
+	title = "Our People"
+	description = "The people behind Project Catalysts — approachable, experienced, outcome-focused."
+
+	body = html::class(
+		"page-people"
+		[
+			procat::h1("Our People")
+			p = `At Project Catalysts, our people deliver outcomes in partnership with our clients.
+				We value smaller, experienced teams of people who care about clarity, delivery,
+				and making a positive difference.`
+
+			// Rik
+			article = html::attributed(
+				{
+					class = "person"
+					id = "rik"
+				}
+				[
+					// Photo
+					figure = html::class(
+						"person-photo"
+						[
+							img = html::attributed(
+								{
+									src = "/assets/people/rik.jpg"
+									alt = "Rik — Founder & Director"
+								}
+								""
+							)
+						]
+					)
+
+					div = html::class(
+						"person-content"
+						[
+							// Name & role
+							h2 = "Rik"
+							p  = html::class( "role", "Founder & Director" )
+
+							// Bio
+							p = `Rik leads large, complex programmes in payments, banking, and technology —
+								from guiding New Zealand's ISO 20022 industry migration to delivering global
+								mobile banking solutions at scale. He communicates easily with executives,
+								regulators, and industry leaders, building alignment where it's needed most.`
+							p = `Rik brings both strategic perspective and deep technical capability, shaped by
+								decades of hands-on delivery across banking, payments, and enterprise systems.
+								This combination means he can solve problems at the big-picture level while also
+								understanding the fine detail that makes solutions work. Rik is also the author
+								of MIXT — a new language for data and document transformation.`
+							p = `What defines Rik is a commitment to clarity and outcomes. He knows projects
+								succeed when challenges are anticipated early, not just repaired later. While
+								adept at stepping in to fix struggling initiatives, he prefers to engage from
+								the outset — shaping projects for success and helping teams avoid the pitfalls
+								that experience has taught him to recognise.`
+						]
+					)
+				]
+			)
+
+			// Subtle cross-links
+			hr = ""
+			p = html::attributed(
+				{
+					class = "cta-row"
+				}
+				[
+					a = html::attributed(
+						{
+							href = "/delivered/"
+						}
+						"See Delivered Outcomes"
+					)
+					a = html::attributed(
+						{
+							href = "/mixt/"
+						}
+						"Learn about MIXT"
+					)
+				]
+			)
+		]
+	)
+}

@@ -121,8 +121,108 @@ import [
 					details = html::attributed(
 						{
 							class = "toc-group"
-							data-page = "home"
+							data-page = "people"
 							open = (pageIndex == 1)
+						}					
+						[
+							summary = html::class(
+								"toc-heading"
+								"Our People"
+							)
+							ul = html::class(
+								"toc-links"
+								[
+									[
+										a = html::attributed(
+											{
+												href = "/people/#"
+											}
+											"Our People"
+										)
+									]									
+									[
+										a = html::attributed(
+											{
+												href = "/people/#rik"
+											}
+											"Rik"
+										)
+									]
+								]
+							)
+						]
+					)
+					details = html::attributed(
+						{
+							class = "toc-group"
+							data-page = "delivery"
+							open = (pageIndex == 1)
+						}					
+						[
+							summary = html::class(
+								"toc-heading"
+								"Delivered Outcomes"
+							)
+							ul = html::class(
+								"toc-links"
+								[
+									[
+										a = html::attributed(
+											{
+												href = "/delivered/#"
+											}
+											"Delivered Outcomes"
+										)
+									]									
+									[
+										a = html::attributed(
+											{
+												href = "/delivered/#iso20022"
+											}
+											"ISO 20022"
+										)
+									]
+									[
+										a = html::attributed(
+											{
+												href = "/delivered/#asb"
+											}
+											"ASB"
+										)
+									]
+									[
+										a = html::attributed(
+											{
+												href = "/delivered/#fiserv"
+											}
+											"FISERV"
+										)
+									]
+									[
+										a = html::attributed(
+											{
+												href = "/delivered/#barcap"
+											}
+											"Barclays Capital"
+										)
+									]
+									[
+										a = html::attributed(
+											{
+												href = "/delivered/#mixt"
+											}
+											"What's Next"
+										)
+									]
+								]
+							)
+						]
+					)
+					details = html::attributed(
+						{
+							class = "toc-group"
+							data-page = "home"
+							open = (pageIndex == 2)
 						}						
 						[
 							summary = html::class(
@@ -256,9 +356,37 @@ import [
 		]
 	)
 
+	// getHtmlClass
+	getHtmlClass = ( value as any ) => (
+		if Value.HasMetadata( value ) then
+			let
+				attributes = Record.FieldOrDefault(
+					Value.Metadata( value )
+					Identifier.FromText( "html", "attributes" )
+					null
+				)
+				class = (
+					if attributes == null then
+						null
+					else
+						Record.FieldOrDefault( attributes, "class", null )
+				)
+			in
+				class
+		else
+			""
+	)
+
+	combineClasses = ( class1 as text, class2 as text ) => (
+		if class2 == "" then
+			class1
+		else
+			$"$(class1) $(class2)"
+	)
+
 	// nav::main
 	nav::main = (siteOwner as text, docContent as list) => html::class(
-		"content"
+		combineClasses( "content", getHtmlClass( docContent{ body } ) )
 		docContent{ body } & [
 			footer = html::class(
 				"footer"

@@ -1,5 +1,7 @@
 import [
 	index = "site/index.mixt"
+	people = "site/people/index.mixt"
+	delivered = "site/delivered/index.mixt"
 	about = "site/about/index.mixt"
 ]
 
@@ -23,6 +25,20 @@ import [
 				"index.html"
 				"dist/"
 				index
+			]
+			[
+				"people"
+				"People"
+				"index.html"
+				"dist/people"
+				people
+			]
+			[
+				"delivered"
+				"Delivered"
+				"index.html"
+				"dist/delivered"
+				delivered
 			]
 			[
 				"about"

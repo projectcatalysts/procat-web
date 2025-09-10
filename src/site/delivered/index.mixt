@@ -1,0 +1,118 @@
+import [
+	html = "../../scripts/html.mixt"
+	procat = "../../scripts/procat.mixt"
+]
+
+{
+	slug = "/delivered/"
+	title = "Delivered Outcomes"
+	description = "Examples of where Project Catalysts has acted as the change agent to solve challenges and deliver great outcomes."
+
+	body = [
+		procat::h1("Delivered Outcomes")
+
+		p = `We appreciate the trust our clients place in us to help them succeed.  Each of these examples
+			reflects a genuine partnership, working together on projects that mattered for our clients, their
+			customers, and the wider industry.  For each opportunity, Project Catalysts was the change agent
+			who solved the challenge and delivered great outcomes.`
+
+		// Payments NZ
+		article = html::attributed(
+			{
+				class = "outcome"
+				id = "iso20022"
+			}
+			[
+				h2 = "Payments NZ — ISO 20022"
+				p = `Facilitated New Zealand's migration to ISO 20022 for the High Value Clearing System.
+					Project Catalysts helped industry participants — banks, the Reserve Bank, and SWIFT — understand
+					the challenges, align on what needed to be done, and meet fixed deadlines. The result was a common
+					standard, tested and implemented across the industry, providing a modern foundation for domestic
+					and cross-border payments.`
+			]
+		)
+
+		// ASB
+		article = html::attributed(
+			{
+				class = "outcome"
+				id = "asb"
+			}
+			[
+				h2 = "ASB — RTGS Replacement & Compliance"
+				p = `Guided ASB through mission-critical programmes including the Reserve Bank's
+					Real-Time Gross Settlement system replacement and compliance with BS11 outsourcing
+					rules.  Project Catalysts solved complex regulatory and infrastructure challenges,
+					enabling uninterrupted settlement services — and Rik earned recognition from the
+					Reserve Bank's Governor for supporting the programme's success.`
+			]
+		)
+
+		// Fiserv
+		article = html::attributed(
+			{
+				class = "outcome"
+				id = "fiserv"
+			}
+			[
+				h2 = "Fiserv — Mobile Banking & NPP"
+				p = `Directed Professional Services for Fiserv's Digital Channels division during a period
+					of rapid global expansion.  Project Catalysts oversaw the delivery of award-winning mobile
+					banking solutions to clients across the US, Asia-Pacific, and Europe, building high-performing
+					teams and improving delivery processes.  Rik also contributed to the early stages of Australia's
+					New Payments Platform (NPP), before handing over due to a cycling accident.`
+			]
+		)
+
+		// Barclays
+		article = html::attributed(
+			{
+				class = "outcome"
+				id = "barcap"
+			}
+			[
+				h2 = "Barclays Capital — Credit Risk Systems"
+				p = `Delivered Barclays Capital's first real-time pre-deal credit checking engine, providing instant
+					risk measures across multiple asset classes.  Project Catalysts then re-architected the Monte-Carlo
+					credit risk calculation platform to scale tenfold, cutting batch duration in half and securing regulatory
+					approval — while saving the bank millions in capital costs.`
+			]
+		)
+
+		// What's Next: MIXT
+		article = html::attributed(
+			{
+				class = "outcome"
+				id = "mixt"
+			}
+			[
+				h2 = "What's Next — MIXT"
+			p = `Project Catalysts has a tremendous amount of delivery experience — both technical and leadership.
+				We've seen first-hand how unnecessary complexity slows projects down, adds risk, and frustrates the
+				people doing the work.`
+			p = `We're determined to deliver faster, more reliably, and with less friction. MIXT is our catalyst for
+				technical delivery.`
+			p = `Rik is the author of MIXT, and we're already using it ourselves.  MIXT keeps data,
+				schemas, and documentation in lockstep, publishing to web, PDF, and DOCX from a single source. It's designed
+				to solve the frustrations of existing tools, and to make pipelines simpler, testable, and deterministic.`
+			p = `We're currently dogfooding MIXT in our own projects, and when we think it's ready, we'll invite others
+				to share the benefits.`
+			]
+		)
+		// Subtle cross-links
+		hr = ""
+		p = html::attributed(
+			{
+				class = "cta-row"
+			}
+			[
+				a = html::attributed(
+					{
+						href = "/mixt/"
+					}
+					"Learn about MIXT"
+				)
+			]
+		)
+	]
+}

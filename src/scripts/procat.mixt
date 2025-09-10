@@ -58,6 +58,7 @@ import [
 				)
 				link = html::stylesheet( "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" )
 				link = html::stylesheet( "/assets/css/base.css" )
+				link = html::stylesheet( "/assets/css/people.css" )
 				link = html::attributed(
 					{
 						rel = "icon"
