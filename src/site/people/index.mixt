@@ -41,7 +41,7 @@ import [
 						"person-content"
 						[
 							// Name & role
-							h2 = "Rik"
+							procat::h2("Rik")
 							p  = html::class( "role", "Founder & Director" )
 
 							// Bio

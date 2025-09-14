@@ -3,58 +3,223 @@ import [
 	procat = "../scripts/procat.mixt"
 ]
 
+// Project Catalysts — Landing Page (index.mixt)
+// Purpose: concise positioning that ties together People, Delivered Outcomes, and MIXT.
 {
-	slug = "/"
-	title = "We solve. We deliver."
-	description = "Payments systems, enterprise data transformation, & bespoke software — delivered fast, right, and maintainable."
-	cards = #table(
+    slug = "/"
+    title = "Project Catalysts — Clarity in Complex Programmes"
+    ;meta = {
+        description = "We deliver clarity and outcomes in complex payments and technology programmes — from ISO 20022 migration to enterprise transformation — and we build MIXT, a powerful language for data and document transformation."
+        ogTitle = "Project Catalysts"
+        ogDescription = "Clarity and outcomes in complex payments and technology programmes."
+    }
+
+    // Hero section
+    hero = {
+        eyebrow = "Consulting • Payments • Data"
+        heading = "Clarity in complex programmes"
+        subheading = "We guide New Zealand's payments ecosystem and major enterprises through high-stakes change — delivering outcomes, building alignment, and simplifying data and documents with MIXT."
+		callsToAction = #table(
+			[
+				"label"
+				"href"
+				"style"
+			]
+			[
+				[ "See delivered outcomes", "/delivered/", "primary" ]
+				[ "Meet our people", "/people/", "secondary" ]
+				[ "Explore MIXT", "/mixt/", "secondary" ]
+			]
+		)
+    }
+
+    // Three value pillars under the hero
+    pillars = #table(
 		[
-			"id"
 			"title"
-			"text"
+			"blurb"
+			"link"
+			"bullets"
 		]
 		[
 			[
-				"payments"
-				"Payments Systems"
-				"ISO 20022, settlement flows, validation harnesses."
+				"Trusted people"
+				"Experienced, outcome-focused leaders who thrive in complexity — comfortable with executives, regulators, and delivery teams."
+				{ label = "Our people", href = "/people/" }
+				[
+					"Proven leadership in banking and payments"
+					"Clear communication and stakeholder alignment"
+					"Hands-on delivery with technical depth"
+				]
 			]
 			[
-				"data"
-				"Enterprise Data Transformation"
-				"Deterministic pipelines with strict schemas & reproducible builds."
+				"Delivered outcomes"
+				"From ISO 20022 industry migration to enterprise programmes, we unblock decisions, simplify scope, and ship."
+				{ label = "Delivered outcomes", href = "/delivered/" }
+				[
+					"ISO 20022 industry migration leadership"
+					"Programme recovery and decision enablement"
+					"Pragmatic governance and execution"
+				]
 			]
 			[
-				"software"
-				"Bespoke Software"
-				"Go-first services, low-latency paths, clarity by design."
+				"Innovative tools"
+				"MIXT reduces data and document complexity — bridging XML, JSON, HTML, and PDFs with a single, testable approach."
+				{ label = "What is MIXT?", href = "/mixt/" }
+				[
+					"Declarative transformations without the YAML sprawl"
+					"Consistent handling of XML/JSON/HTML/PDF"
+					"Designed for reliability, testing, and scale"
+				]
 			]
 		]
 	)
+
+    // Credibility / trust strip
+    credibility = {
+        title = "Trusted by banks, regulators, and industry bodies."
+        logos = [
+            // { alt = "Example Bank", src = "/assets/logos/example-bank.svg" }
+            // { alt = "Payments NZ",  src = "/assets/logos/pnz.svg" }
+        ]
+	}
+
+    // Bridging copy: why Project Catalysts
+    connectors = #table(
+		[
+			"headimg"
+			"copy"
+		]
+		[
+			[
+            	"Make complexity legible"
+            	"We map the moving parts, surface the real constraints, and create a shared language so decisions become straightforward."
+			]
+			[
+            	"Ship outcomes, not just artefacts"
+            	"We align governance with delivery and keep attention on the minimal set of choices that move the programme forward."
+			]
+			[
+            	"Tame data and documents"
+            	"With MIXT we standardise how transformations are expressed, tested, and automated — reducing risk and rework."
+			]
+		]
+	)
+
+    // Calls to action
+    callsToAction = #table(
+		[
+			"label"
+			"href"
+			"style"
+		]
+		[
+			[ "See delivered outcomes", "/delivered/", "primary" ]
+			[ "Meet our people", "/people/", "secondary" ]
+			[ "Explore MIXT", "/mixt/", "secondary" ]
+			[ "Get in touch", "/contact/", "link" ]
+		]
+	)
+
+	// Frequently asked questions
+    faqs = #table(
+		[
+			"question"
+			"answer"
+		]
+        [
+			[
+            	"What kinds of programmes do you lead?"
+            	"Payments and banking, ISO 20022 migrations, enterprise platforms, and complex data/document transformation initiatives."
+			]
+			[
+				"Is MIXT a product or an internal tool?"
+				"It's an openly documented language we created for real-world transformation work. We use it in delivery and make it available to clients."
+			]
+			[
+            	"Do you work with in-house teams or end-to-end?"
+            	"Both. We often embed alongside client teams to accelerate outcomes and upskill as we go."
+			]
+		]
+	)
+
 	body = [
-		procat::hero(
-			"Less complexity. More delivery."
-			#(p = html::class(
-				"lead"
-				"MIXT-powered engineering for payments systems, data transformation, and bespoke software."
-			))
+		;section = html::attributed(
+			{ class = "hero", aria-labelledby = "hero-title" }
+			[
+				div = html::class(
+					"hero-inner"
+					[
+						p = html::attributed(
+							{ class = "hero-eyebrow", id = "hero-eyebrow" }
+							hero{ eyebrow }
+						)
+						h1 = html::attributed(
+							{ id = "hero-title", class = "heading-level1", aria-describedby = "hero-eyebrow" }
+							hero{ heading }
+						)
+						p = html::class(
+							"lead"
+							hero{ subheading }
+						)
+					]
+				)
+				procat::callsToAction(
+					"hero-ctas",
+					hero{ callsToAction }
+				)
+			]
+		)
+		procat::pillars(
+			"What we bring"
+			pillars
+		)
+		;section = html::attributed(
+			{ class = "strip", aria-label = "Credibility" }
+			[
+				p = html::class(
+					"center"
+					credibility{ title }
+				)
+			]
+		)
+		;section = html::attributed(
+			{ class = "grid3", aria-labelledby = "connectors-title" }
+			(
+				let
+					connectorRecords = Table.ToRecords( connectors )
+					transformed = List.Transform(
+						connectorRecords
+						(connector as record) => #(article =
+							html::class(
+								"card"
+								[
+									h3 = html::class(
+										"heading-level2"
+										connector{ headimg }
+									)
+									p = connector{ copy }
+								]
+							)
+						)
+					)
+					prefixed = [
+						h1 = html::attributed(
+							{
+								id = "connectors-title"
+								class = "visually-hidden"
+							}
+							"How we help"
+						)
+					] & transformed
+				in
+					prefixed
+			)
 		)
 
-		procat::cards(
-			"what" // id
-			List.Transform(
-				Table.ToRecords(cards)
-				(card as record) => #(article = html::attributed(
-					{
-						class = "card"
-						id = html::href( "", card{ title }, "" )
-					}
-					[
-						h2 = html::class( "heading-level2", card{ title } )
-						p = card{ text }
-					]
-				))
-			)
+		procat::callsToAction(
+			"cta-row center"
+			callsToAction
 		)
 	]
 }

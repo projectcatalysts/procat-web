@@ -1,12 +1,13 @@
 import [
 	procat = "scripts/procat.mixt"
+	menu = "scripts/menu.mixt"
 	config = "config.mixt"
 ]
 
 let
 	//selector = null
 	selector = (id as text) => true
-	//selector = (id as text) => (id == "Coexistence")
+	//selector = (id as text) => (id == "about")
 
 	documentsTable = config{ navTable }
 	docSet = Table.ToRecords(
@@ -18,6 +19,7 @@ let
 				(doc) => selector( doc{ id } )
 			)
 	)
+	pagesAndSections = menu::generate( docSet )
 	written = List.Accumulate(
 		docSet
 		{}
@@ -36,6 +38,7 @@ let
 								docContent
 								docIndex
 								docSet
+								pagesAndSections
 							)
 						)
 					)

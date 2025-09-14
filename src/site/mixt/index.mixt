@@ -1,0 +1,87 @@
+import [
+	html = "../../scripts/html.mixt"
+	procat = "../../scripts/procat.mixt"
+]
+
+{
+	slug = "/mixt/"
+	title = "MIXT"
+	description = "Data transformation reimagined."
+
+	body = [
+		// HERO
+		procat::hero(
+			"MIXT — less complexity, more delivery."
+			[
+				p = html::class(
+					"lead"
+					"A schema-first language for deterministic data & document transformation. Keep data, rules, and documentation in lockstep — and publish to web, PDF, and DOCX from the same source."
+				)
+			]
+		)
+
+		// WHY MIXT
+		procat::h1("Why MIXT?")
+		p = `We've spent years delivering complex programmes and have seen how unnecessary complexity slows teams down.
+			Glue code sprawls, specs drift from implementations, and documentation goes stale. MIXT exists to remove that friction.`
+
+		h2 = "The pain we keep seeing"
+		ul = [
+			"YAML/JSON pipeline sprawl with fragile handoffs"
+			"Specs and code diverge; docs rot"
+			"XSLT/jq power, but sharp edges (quoting, error messages, testability)"
+			"Inconsistent schemas; unclear validation"
+			"Non-deterministic builds that are hard to reproduce"
+		]
+
+		// WHAT MIXT IS
+		procat::h1("What MIXT is")
+		p = "A practical, schema-first language that makes transformation explicit, testable, and repeatable."
+		h2 = "Core pillars"
+		ul = [
+			"Schema-first: strict, explicit types with metadata and validations"
+			"Deterministic builds: same inputs → same outputs, across environments"
+			"Executable specs: rules and tests live alongside transformations"
+			"Multi-output publishing: website, PDF, and DOCX from one source"
+			"Clarity & performance: designed to be readable, fast, and auditable"
+		]
+
+		// HOW IT HELPS DELIVERY
+		procat::h1( "How it helps delivery" )
+		p = `Model first, then implement. Encode the rules once, generate consistent outputs,
+			and keep teams aligned with executable specifications and living documentation.`
+		ul = [
+			"Fewer moving parts; less glue code"
+			"Clear errors with precise context"
+			"Reproducible builds that survive audits"
+			"Shared source of truth for data, transforms, and docs"
+		]
+
+		// STATUS
+		procat::h1("Status")
+		p = `MIXT is in active development. We're dogfooding it in our own projects, refining the language and the toolchain.
+			When we're confident it's ready, we'll invite others to share the benefits.`
+
+
+		// CTA
+		p = html::attributed(
+			{
+			class = "cta-row"
+			}
+			[
+			a = html::attributed(
+				{
+					href = "/about/#contact"
+				}
+				"Register interest"
+			)
+			a = html::attributed(
+				{
+					href = "/delivered/"
+				}
+				"See Delivered Outcomes"
+			)
+			]
+		)
+	]
+}

@@ -1,0 +1,213 @@
+namespace menu
+
+// TODO: If this is a list, we get errors with unresolved identifiers!
+{
+	// containsClass
+	containsClass = (class as text, className as text) => (
+		class == className or
+			Text.StartsWith( class, className & " " ) or
+			Text.EndsWith( class, " " & className )
+			/* or
+			Text.Contains( class, Text.Flank( className, " " ) ) */
+			// TODO: Investigate Text.Contains behaviour
+	)
+
+	// valueHasClass
+	valueHasClass = (value as any, classOrClassList as any) => (
+		let
+			htmlAttributes = Identifier.FromText( "html", "attributes" )
+			metadata = Value.Metadata( value )
+			attributes = (
+				if metadata == null then
+					null
+				else
+					Record.FieldOrDefault( metadata, htmlAttributes, null )
+			)
+			class = (
+				if attributes == null then
+					""
+				else
+					Record.FieldOrDefault( attributes, "class", null )
+			)
+			hasClass = (
+				if Value.Is( classOrClassList, type list ) then
+					List.Accumulate(
+						classOrClassList,
+						false,
+						(state as logical, className as text ) => (
+							if state then
+								state
+							else
+								containsClass( class, className )
+						)
+					)
+				else if Value.Is( classOrClassList, type text ) then
+					containsClass( class, classOrClassList )
+				else
+					false
+			)
+		in
+			hasClass
+	)
+
+	// getId
+	getId = (clause as any) => (
+		let
+			htmlAttributes = Identifier.FromText( "html", "attributes" )
+			metadata = Value.Metadata( clause )
+			attributes = (
+				if metadata == null then
+					null
+				else
+					Record.FieldOrDefault( metadata, htmlAttributes, null )
+			)
+			id = (
+				if attributes == null then
+					""
+				else
+					Record.FieldOrDefault( attributes, "id", "" )
+			)
+		in
+			id
+	)
+
+	// isSection
+	isSection = ( name as text, content as any ) => (
+		if name == "h1" then
+			valueHasClass( content, [ "heading-level1", "visually-hidden" ] )
+		else
+			false
+	)
+
+	// isSubSection
+	isSubSection = ( name as text, content as any ) => (
+		if name == "h2" then
+			valueHasClass( content, "heading-level2" )
+		else if name == "article" then
+			valueHasClass( content, "outcome" )
+		else
+			false
+	)
+
+	// appendSubSection
+	appendSubSection = ( subSections as list, content as any ) => (
+		let
+			id = getId( content )
+			newSubSection = List.AddItem(
+				[]
+				id
+				Value.RemoveMetadata( content )
+			)
+			result = subSections & newSubSection
+		in
+			result
+	)
+
+	// appendSubSections
+	appendSubSections = (subSections as list, contents as list) => (
+		List.Accumulate(
+			contents
+			subSections
+			(subSections, content, itemIndex, name) => (
+				if Value.Is( content, type text ) and content <> "" then
+					appendSubSection( subSections, name, content )
+				else if Value.Is( content, type list ) then
+					@appendSubSections( subSections, content )
+				else
+					subSections
+			)
+		)
+	)
+
+	// appendSections
+	appendSections = (sections as record, contents as list) => (
+		List.Accumulate(
+			contents,
+			sections,
+			(state, content, itemIndex, name) => (
+				if Value.Is( content, type text ) then
+					if isSection( name, content ) then
+						if state{ Section } == "" then
+							state & {
+								Section = Value.RemoveMetadata( content )
+								Id = getId( content )
+							}
+						else
+							let
+								completeSection = {
+									Section = state{ Section }
+									Id = state{ Id }
+									SubSections = state{ SubSections }
+								}
+								newState = {
+									Sections = state{ Sections } & [
+										completeSection
+									]
+									Section = Value.RemoveMetadata( content )
+									Id = getId( content )
+									SubSections = []
+								}
+							in
+								newState
+					else if isSubSection( name, content ) then
+						state & {
+							SubSections = appendSubSection( state{ SubSections }, content )
+						}
+					else
+						state
+				else if Value.Is( content, type list ) then
+					@appendSections( state, content )
+				else
+					state
+			)
+		)
+	)
+
+	// getDocumentSections
+	getDocumentSections = (docContent as list) => (
+		let
+			// sectionsAndSubSections
+			sectionsAndSubSections = appendSections(
+				{
+					Sections = []
+					Section = ""
+					Id = ""
+					SubSections = []
+				}
+				docContent
+			)
+			finalSection = {
+				Section = sectionsAndSubSections{ Section }
+				Id = sectionsAndSubSections{ Id }
+				SubSections = sectionsAndSubSections{ SubSections }
+			}
+			return = sectionsAndSubSections{ Sections } & [ finalSection ]
+		in
+			return
+	)
+
+	// generate
+	menu::generate = (docSet as list) => (
+		List.Accumulate(
+			docSet
+			[]
+			(state, doc) => (
+				let
+					docContent = doc{ source }{ body }
+					docTitle = doc{ title }
+					docSlug = doc{ source }{ slug }
+					sections = getDocumentSections( docContent )
+					logged = Diagnostics.Trace( TraceLevel.Information, docTitle, sections )
+					appended = state & [
+						{
+							DocSlug = docSlug
+							DocTitle = docTitle
+							DocSections = sections
+						}
+					]
+				in
+					appended
+			)
+		)
+	)
+}

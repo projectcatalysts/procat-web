@@ -13,9 +13,10 @@ import [
 	procat::document = (
 		siteName as text,
 		siteOwner as text,
-		docContent as list,
+		docContent as record,
 		docIndex as number,
-		docSet as list
+		docSet as list,
+		pagesAndSections as list
 	) => (
 		html::document(
 			"html",
@@ -99,8 +100,7 @@ import [
 					div = html::class(
 						"wrap"
 						[
-							aside = nav::sidebar( siteName, docIndex )
-							//nav = nav::nav( docTitle, chaptersAndClauses, docIndex, docSet )
+							aside = nav::sidebar( siteName, docIndex, pagesAndSections )
 							main = nav::main( siteOwner, docContent )
 						]
 					)
@@ -329,5 +329,70 @@ import [
 			}
 			cards
 		)
+	)
+
+	// procat::callsToAction
+	procat::callsToAction = ( class as text, ctas as table ) => #(div = 
+		let
+			ctaRecords = Table.ToRecords( ctas )
+			transformed = List.Transform(
+				ctaRecords
+				(cta as record) => #(a =
+					html::attributed(
+						{
+							class = cta{ style }
+							href = cta{ href }
+						}
+						cta{ label }
+					)
+				)
+			)
+		in
+			html::class(
+				class
+				transformed
+			)
+	)
+
+	// procat::pillars
+	procat::pillars = ( title as text, pillars as table ) => #(section = 
+		let
+			pillarRecords = Table.ToRecords( pillars )
+			transformed = List.Transform(
+				pillarRecords
+				(pillar as record) => #(article =
+					html::class(
+						"card"
+						[
+							h3 = html::class(
+								"heading-level2"
+								pillar{ title }
+							)
+							p = pillar{ blurb }
+							procat::bullets( pillar{ bullets }... )
+							p = [
+								a = html::attributed(
+									{
+										class = "button link"
+										href = pillar{ link }{ href }
+									}
+									pillar{ link }{ label }
+								)
+							]
+						]
+					)					
+				)
+			)
+			prefixed = [
+				h2 = html::attributed(
+					{ id = "pillars-title", class = "visually-hidden" }
+					title
+				)
+			] & transformed
+		in
+			html::attributed(
+				{ class = "grid3", aria-labelledby = "pillars-title" }
+				prefixed
+			)
 	)
 }

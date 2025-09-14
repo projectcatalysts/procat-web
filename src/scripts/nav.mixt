@@ -49,7 +49,7 @@ import [
 	)
 
 	// nav::sidebar
-	nav::sidebar = (siteName as text, pageIndex as number) => html::attributed(
+	nav::sidebar = (siteName as text, selectedPageIndex as number, pagesAndSections as list ) => html::attributed(
 		{
 			id = "sidebar"
 			class = "sidebar"
@@ -75,281 +75,48 @@ import [
 					class = "toc"
 					aria-label = "Site navigation"
 				}
-				[
-					details = html::attributed(
-						{
-							class = "toc-group"
-							data-page = "home"
-							open = (pageIndex == 0)
-						}
-						[
-							summary = html::class(
-								"toc-heading"
-								"Home"
-							)
-							ul = html::class(
-								"toc-links"
-								[
-									[
-										a = html::attributed(
-											{
-												href = "/#payments-systems"
-											}
-											"Payments"
-										)
-									]
-									[
-										a = html::attributed(
-											{
-												href = "/#enterprise-data-transformation"
-											}
-											"Data"
-										)
-									]
-									[
-										a = html::attributed(
-											{
-												href = "/#bespoke-software"
-											}
-											"Software"
-										)
-									]
-								]
-							)
-						]
-					)
-					details = html::attributed(
-						{
-							class = "toc-group"
-							data-page = "people"
-							open = (pageIndex == 1)
-						}					
-						[
-							summary = html::class(
-								"toc-heading"
-								"Our People"
-							)
-							ul = html::class(
-								"toc-links"
-								[
-									[
-										a = html::attributed(
-											{
-												href = "/people/#"
-											}
-											"Our People"
-										)
-									]									
-									[
-										a = html::attributed(
-											{
-												href = "/people/#rik"
-											}
-											"Rik"
-										)
-									]
-								]
-							)
-						]
-					)
-					details = html::attributed(
-						{
-							class = "toc-group"
-							data-page = "delivery"
-							open = (pageIndex == 1)
-						}					
-						[
-							summary = html::class(
-								"toc-heading"
-								"Delivered Outcomes"
-							)
-							ul = html::class(
-								"toc-links"
-								[
-									[
-										a = html::attributed(
-											{
-												href = "/delivered/#"
-											}
-											"Delivered Outcomes"
-										)
-									]									
-									[
-										a = html::attributed(
-											{
-												href = "/delivered/#iso20022"
-											}
-											"ISO 20022"
-										)
-									]
-									[
-										a = html::attributed(
-											{
-												href = "/delivered/#asb"
-											}
-											"ASB"
-										)
-									]
-									[
-										a = html::attributed(
-											{
-												href = "/delivered/#fiserv"
-											}
-											"FISERV"
-										)
-									]
-									[
-										a = html::attributed(
-											{
-												href = "/delivered/#barcap"
-											}
-											"Barclays Capital"
-										)
-									]
-									[
-										a = html::attributed(
-											{
-												href = "/delivered/#mixt"
-											}
-											"What's Next"
-										)
-									]
-								]
-							)
-						]
-					)
-					details = html::attributed(
-						{
-							class = "toc-group"
-							data-page = "home"
-							open = (pageIndex == 2)
-						}						
-						[
-							summary = html::class(
-								"toc-heading"
-								"About"
-							)
-							ul = html::class(
-								"toc-links"
-								[
-									[
-										a = html::attributed(
-											{
-												href = "/about/#"
-											}
-											"Overview"
-										)
-									]									
-									[
-										a = html::attributed(
-											{
-												href = "/about/#approach"
-											}
-											"Approach"
-										)
-									]
-									[
-										a = html::attributed(
-											{
-												href = "/about/#principles"
-											}
-											"Principles"
-										)
-									]
-								]
-							)
-						]
-					)
-				]
-			)
-		]
-	)
-
-	// nav::nav
-	nav::nav = (
-		docTitle as text,
-		chaptersAndClauses as list,
-		docIndex as number,
-		docSet as list
-	) => html::attributed(
-		{
-			id = "procat-toc"
-			class = "procat-toc"
-			aria-label = "Table of contents"
-		}
-		[
-			// Document switcher (optional if header switcher is shown)
-			div = html::class(
-				"toc-group toc-docs"
-				[
-					div = html::class( "toc-heading", "Documents" )
-					ul = html::class(
-						"toc-links"
-						List.Transform(
-							docSet
-							(doc, i) => (
-								let 
-									target = doc{ target }
-									title = doc{ title }
-									transformed = #(li = {
-										a = html::attributed(
-											(
-												if i == docIndex then
-													{
-														href = target
-														class="active"
-														aria-current="page"
-													}
-												else
-													{
-														href = target
-													}
-											)
-											title
-										)
-									})
-								in
-									transformed
-							)
-						)
-					)
-				]
-			)
-
-			// Chapters
-			div = html::class(
-				"toc-group toc-chapters"
-				[
-					div = html::class( "toc-heading", "Chapters" )
-				]
-				&
 				List.Transform(
-					chaptersAndClauses
-					(chapterAndClauses) => (
-						#(details =
-							[
-								summary = chapterAndClauses{ Chapter }
-								ul = html::class(
-									"toc-links"
-									List.Transform(
-										chapterAndClauses{ Clauses }
-										(clause, i, name) => #(li = {
-											a = html::attributed(
-												{
-													href = html::href( name, clause, "#" )
-												}
-												(
-													if name == "" then
-														clause
-													else
-														$"$(name) $(clause)"
-												)
-											)	
-										})
-									)
+					pagesAndSections
+					(page as record, pageIndex as number) => (
+						let
+							isSelectedPage = (selectedPageIndex == pageIndex)
+							slugPrefix = (
+								if isSelectedPage then
+									"#"
+								else
+									page{ DocSlug } & "#"
+							)
+							pageNavigation = #(details = 
+								html::attributed(
+									{
+										class = "toc-group"
+										data-page = page{ DocTitle }
+										open = isSelectedPage
+									}
+									[
+										summary = html::class(
+											"toc-heading"
+											page{ DocTitle }
+										)
+										ul = html::class(
+											"toc-links"
+											List.Transform(
+												page{ DocSections }
+												(_section as record) => [
+													a = html::attributed(
+														{
+															href = slugPrefix & _section{ Id }
+														}
+														_section{ Section }
+													)
+												]
+											)
+										)
+									]
 								)
-							]
-						)
+							)
+						in
+							pageNavigation
 					)
 				)
 			)
@@ -377,6 +144,7 @@ import [
 			""
 	)
 
+	// combineClasses
 	combineClasses = ( class1 as text, class2 as text ) => (
 		if class2 == "" then
 			class1
@@ -385,7 +153,7 @@ import [
 	)
 
 	// nav::main
-	nav::main = (siteOwner as text, docContent as list) => html::class(
+	nav::main = (siteOwner as text, docContent as record) => html::class(
 		combineClasses( "content", getHtmlClass( docContent{ body } ) )
 		docContent{ body } & [
 			footer = html::class(
@@ -394,86 +162,4 @@ import [
 			) 
 		]
 	)
-
-	// menuClass
-	menuClass = (currentIndex as UInt64.Type, activeIndex as UInt64.Type) => (
-		if currentIndex == activeIndex then
-			"menu-branch active"
-		else
-			"menu-branch"
-	)
-
-	nav::menu = (activeIndex as UInt64.Type) => [
-		div = html::class(
-			"menu-container"
-			[
-				div = html::class(
-					"menu-root"
-					[
-						"Payments NZ Rules"
-						"Part 9"
-						"HVCS Clearing and Settlement"
-					]
-				)
-
-				div = html::class(
-					"menu-branches"
-					[
-						a = html::styled_link(
-							"overview.html"
-							menuClass( 0, activeIndex )
-							[
-								"Part A"
-								"HVCS Overview"
-							]
-						)
-						a = html::styled_link(
-							"common.html"
-							menuClass( 1, activeIndex )
-							[
-								"Part B"
-								"HVCS Common Procedures"
-							]
-						)
-						a = html::styled_link(
-							"scp.html"
-							menuClass( 2, activeIndex )
-							[
-								"Part C"
-								"SCP Procedures"
-							]
-						)
-						a = html::styled_link(
-							"mx.html"
-							menuClass( 3, activeIndex )
-							[
-								"Part D"
-								"MX Messaging Procedures (ISO 20022)"
-							]
-						)
-						a = html::styled_link(
-							"mt.html"
-							menuClass( 4, activeIndex )
-							[
-								"Part E"
-								"MT Messaging Procedures (ISO 15022)"
-							]
-						)
-						a = html::styled_link(
-							"coexistence.html"
-							menuClass( 5, activeIndex )
-							[
-								"Part F"
-								"Co-existence Procedures"
-							]
-						)
-					]
-				)
-			]
-		)
-		div = html::class(
-			"menu-caption"
-			"Diagram 01: HVCS Rules and Procedures documentation structure"
-		)
-	]
 }

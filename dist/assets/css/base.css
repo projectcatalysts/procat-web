@@ -20,7 +20,7 @@
 	--procat-header-height: 64px;
 	/* */
 	--gutter: 12px;
-	/* fallback for first paint */	
+	/* fallback for first paint */
 	--toggle-w: 120px;
 }
 
@@ -108,7 +108,7 @@ html {
 }
 
 .brand img {
-	max-height: calc( var(--procat-header-height) - 8px );
+	max-height: calc(var(--procat-header-height) - 8px);
 	height: auto;
 }
 
@@ -252,7 +252,7 @@ html {
 .topbar-row .brand img {
 	display: block;
 	height: auto;
-	max-height: calc( var(--procat-header-height) - 8px );
+	max-height: calc(var(--procat-header-height) - 8px);
 	margin-left: auto;
 	margin-right: auto;
 	padding: 5px;
@@ -269,46 +269,59 @@ html {
 	border: 1px solid var(--line);
 	border-radius: 8px;
 	padding: 6px 10px;
-	box-shadow: 0 2px 4px rgba(0,0,0,.25);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
 	min-width: 0px;
 }
 
 .topbar-nav-toggle,
 .button {
 	flex: 0 0 auto;
-	margin-left: auto;
 	background: transparent;
 	color: var(--ink);
 	border: 1px solid var(--line);
 	border-radius: 8px;
 	padding: 6px 10px;
 	cursor: pointer;
-	box-shadow: 0 2px 4px rgba(0,0,0,.25);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+	text-decoration: none;
+	/* for <a> buttons */
+	line-height: 1.2;
+	/* 
+	* Buttons: subtle transitions for polish & affordance
+	* - Fades color/border/background so hover/active changes feel intentional, not jumpy.
+	* - Animates only paint/composite-friendly props (color, background-color, border-color, transform).
+	* - Keeps focus ring instant for accessibility (no transition on outline).
+	* - Disabled under prefers-reduced-motion to respect user settings.
+	*/
+	transition: background-color .15s, color .15s, border-color .15s, transform .12s;
 }
 
 .topbar-nav-toggle:hover {
-	background: rgba(255,255,255,.05);
+	background: rgba(255, 255, 255, .05);
 	color: var(--accent);
 }
 
 .button:hover {
-	background: rgba(255,255,255,.05);
+	background: rgba(255, 255, 255, .05);
 	color: var(--accent);
 }
 
 /* When the sidebar toggle checkbox is checked */
-.nav-toggle-input:checked ~ .topbar .topbar-nav-toggle {
+.nav-toggle-input:checked~.topbar .topbar-nav-toggle {
 	color: #fff;
 	border-color: var(--accent);
-	background: rgba(255,255,255,.05);
-	box-shadow: inset 0 2px 4px rgba(0,0,0,.5); /* pressed look */
-	transform: translateY(1px);                  /* shift down 1px */
+	background: rgba(255, 255, 255, .05);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, .5);
+	/* pressed look */
+	transform: translateY(1px);
+	/* shift down 1px */
 }
 
 /*
-CTA row (if present)
+Call To Action (CTA)
 */
 
+/* Base remains your current .cta-row a */
 .cta-row {
 	display: flex;
 	gap: 1rem;
@@ -321,16 +334,105 @@ CTA row (if present)
 .cta-row a {
 	display: block;
 	padding: 6px 8px;
-	text-decoration: none;
 	/* no underline */
+	text-decoration: none;
 	border-radius: 6px;
 	color: var(--ink);
 	border: 1px solid var(--line);
+	transition: background-color .15s, color .15s, border-color .15s, transform .12s;
 }
 
 .cta-row a:hover {
 	background: rgba(255, 255, 255, .04);
 	color: var(--accent);
+}
+
+/* Focus ring for keyboard users */
+.cta-row a:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 2px;
+}
+
+/* Primary: filled */
+.cta-row a.primary {
+	background: var(--accent);
+	color: #0b0e11;
+	/* readable on accent */
+	border-color: var(--accent);
+}
+
+.cta-row a.primary:hover {
+	transform: translateY(-1px);
+}
+
+/* Secondary: your current outlined look (inherits base) */
+/* no extra rules needed
+.cta-row a.secondary {
+}
+*/
+
+.cta-row a.secondary:hover {
+	transform: translateY(-1px);
+}
+
+/* Link: quiet, text-only */
+.cta-row a.link {
+	background: transparent;
+	border-color: transparent;
+	box-shadow: none;
+	padding-left: 0;
+	padding-right: 0;
+	color: color-mix(in oklab, var(--ink) 85%, transparent);
+}
+
+.cta-row a.link:hover {
+	text-decoration: underline;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.cta-row a {
+		transition: none;
+	}
+}
+
+/*
+Style the hero container CTAa as a larger versions of .cta-row (padding/weight/spacing).
+*/
+.hero-ctas {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+
+.hero-ctas a {
+	/* bump size a touch vs .cta-row a */
+	padding: 8px 12px;
+	font-weight: 600;
+	border-radius: 8px;
+}
+
+/* Optional: on small screens, let the primary be wider */
+@media (max-width: 640px) {
+	.hero-ctas a.primary {
+		min-width: 14rem;
+		text-align: center;
+	}
+}
+
+/* Hidden visually, but available to AT; NOT for focusable controls */
+.visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	clip-path: inset(50%);
+	clip: rect(0 0 0 0);
 }
 
 /* ========== Responsive / mobile drawer mechanics ========== */

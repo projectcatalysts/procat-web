@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta name="description" content="The people behind Project Catalysts — approachable, experienced, outcome-focused."/>
-        <title>Our People</title>
+        <meta name="description" content="Data transformation reimagined."/>
+        <title>MIXT</title>
         <link rel="preload" href="/assets/fonts/acens.ttf" as="font" type="font/ttf" crossorigin/>
         <link rel="preload" href="/assets/images/procat_banner_white_transparent.png" as="image"/>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap" rel="stylesheet"/>
@@ -41,11 +41,11 @@
                             </li>
                         </ul>
                     </details>
-                    <details class="toc-group" data-page="People" open>
+                    <details class="toc-group" data-page="People">
                         <summary class="toc-heading">People</summary>
                         <ul class="toc-links">
                             <li>
-                                <a href="#our-people">Our People</a>
+                                <a href="/people/#our-people">Our People</a>
                             </li>
                         </ul>
                     </details>
@@ -57,23 +57,23 @@
                             </li>
                         </ul>
                     </details>
-                    <details class="toc-group" data-page="Mixt">
+                    <details class="toc-group" data-page="Mixt" open>
                         <summary class="toc-heading">Mixt</summary>
                         <ul class="toc-links">
                             <li>
-                                <a href="/mixt/#mixt-—-less-complexity-more-delivery">MIXT — less complexity, more delivery.</a>
+                                <a href="#mixt-—-less-complexity-more-delivery">MIXT — less complexity, more delivery.</a>
                             </li>
                             <li>
-                                <a href="/mixt/#why-mixt?">Why MIXT?</a>
+                                <a href="#why-mixt?">Why MIXT?</a>
                             </li>
                             <li>
-                                <a href="/mixt/#what-mixt-is">What MIXT is</a>
+                                <a href="#what-mixt-is">What MIXT is</a>
                             </li>
                             <li>
-                                <a href="/mixt/#how-it-helps-delivery">How it helps delivery</a>
+                                <a href="#how-it-helps-delivery">How it helps delivery</a>
                             </li>
                             <li>
-                                <a href="/mixt/#status">Status</a>
+                                <a href="#status">Status</a>
                             </li>
                         </ul>
                     </details>
@@ -108,38 +108,51 @@
                     </details>
                 </nav>
             </aside>
-            <main class="content page-people">
-                <h1 id="our-people" class="heading-level1">Our People</h1>
-                <p>At Project Catalysts, our people deliver outcomes in partnership with our clients.
-				We value smaller, experienced teams of people who care about clarity, delivery,
-				and making a positive difference.</p>
-                <article class="person" id="rik">
-                    <figure class="person-photo">
-                        <img src="/assets/people/rik.jpg" alt="Rik — Founder &amp; Director"></img>
-                    </figure>
-                    <div class="person-content">
-                        <h2 id="rik" class="heading-level2">Rik</h2>
-                        <p class="role">Founder &amp; Director</p>
-                        <p>Rik leads large, complex programmes in payments, banking, and technology —
-								from guiding New Zealand&apos;s ISO 20022 industry migration to delivering global
-								mobile banking solutions at scale. He communicates easily with executives,
-								regulators, and industry leaders, building alignment where it&apos;s needed most.</p>
-                        <p>Rik brings both strategic perspective and deep technical capability, shaped by
-								decades of hands-on delivery across banking, payments, and enterprise systems.
-								This combination means he can solve problems at the big-picture level while also
-								understanding the fine detail that makes solutions work. Rik is also the author
-								of MIXT — a new language for data and document transformation.</p>
-                        <p>What defines Rik is a commitment to clarity and outcomes. He knows projects
-								succeed when challenges are anticipated early, not just repaired later. While
-								adept at stepping in to fix struggling initiatives, he prefers to engage from
-								the outset — shaping projects for success and helping teams avoid the pitfalls
-								that experience has taught him to recognise.</p>
+            <main class="content">
+                <section class="hero">
+                    <div class="hero-inner">
+                        <h1 id="mixt-—-less-complexity-more-delivery" class="heading-level1">MIXT — less complexity, more delivery.</h1>
+                        <p>
+                            <p class="lead">A schema-first language for deterministic data &amp; document transformation. Keep data, rules, and documentation in lockstep — and publish to web, PDF, and DOCX from the same source.</p>
+                        </p>
                     </div>
-                </article>
-                <hr></hr>
+                </section>
+                <h1 id="why-mixt?" class="heading-level1">Why MIXT?</h1>
+                <p>We&apos;ve spent years delivering complex programmes and have seen how unnecessary complexity slows teams down.
+			Glue code sprawls, specs drift from implementations, and documentation goes stale. MIXT exists to remove that friction.</p>
+                <h2>The pain we keep seeing</h2>
+                <ul>
+                    <li>YAML/JSON pipeline sprawl with fragile handoffs</li>
+                    <li>Specs and code diverge; docs rot</li>
+                    <li>XSLT/jq power, but sharp edges (quoting, error messages, testability)</li>
+                    <li>Inconsistent schemas; unclear validation</li>
+                    <li>Non-deterministic builds that are hard to reproduce</li>
+                </ul>
+                <h1 id="what-mixt-is" class="heading-level1">What MIXT is</h1>
+                <p>A practical, schema-first language that makes transformation explicit, testable, and repeatable.</p>
+                <h2>Core pillars</h2>
+                <ul>
+                    <li>Schema-first: strict, explicit types with metadata and validations</li>
+                    <li>Deterministic builds: same inputs → same outputs, across environments</li>
+                    <li>Executable specs: rules and tests live alongside transformations</li>
+                    <li>Multi-output publishing: website, PDF, and DOCX from one source</li>
+                    <li>Clarity &amp; performance: designed to be readable, fast, and auditable</li>
+                </ul>
+                <h1 id="how-it-helps-delivery" class="heading-level1">How it helps delivery</h1>
+                <p>Model first, then implement. Encode the rules once, generate consistent outputs,
+			and keep teams aligned with executable specifications and living documentation.</p>
+                <ul>
+                    <li>Fewer moving parts; less glue code</li>
+                    <li>Clear errors with precise context</li>
+                    <li>Reproducible builds that survive audits</li>
+                    <li>Shared source of truth for data, transforms, and docs</li>
+                </ul>
+                <h1 id="status" class="heading-level1">Status</h1>
+                <p>MIXT is in active development. We&apos;re dogfooding it in our own projects, refining the language and the toolchain.
+			When we&apos;re confident it&apos;s ready, we&apos;ll invite others to share the benefits.</p>
                 <p class="cta-row">
+                    <a href="/about/#contact">Register interest</a>
                     <a href="/delivered/">See Delivered Outcomes</a>
-                    <a href="/mixt/">Learn about MIXT</a>
                 </p>
                 <footer class="footer">© 2025 Project Catalysts Ltd</footer>
             </main>
