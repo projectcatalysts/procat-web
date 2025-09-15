@@ -1,0 +1,15 @@
+#!/usr/bin/env -S mixt run --pretty
+OS.Execute(
+	{
+		WriteStdout = true
+	} @> [
+		{
+			Executable = "rclone"
+			Arguments = [
+				"sync"
+				"./dist/"
+				"cloudflare-procat-web:/procat-web/"
+			]
+		}
+	]
+)
