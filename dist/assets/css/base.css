@@ -9,19 +9,65 @@
 
 /* ========== Theme variables ========== */
 :root {
-	--bg: #0b0b0d;
-	/*--panel: #111216; */
-	--panel: black;
+	--bg: #212121;
+	--bg-hero: #0b0b0d;
+	--bg-panel: black;
+	--bg-footer: #212121;
 	--ink: #e9eef5;
 	--muted: #9aa3ad;
 	--line: #23252b;
-	--accent: #e86e01;
+	--accent: #50a4d1;
+	--procat-colour-orange: #e86e01;
+	--procat-colour-purple: #7c5290;
+	--procat-colour-blue: #42527d;
+	--procat-colour-pink: #bb4682;
+	--procat-colour-peach: #e54856;
+	--procat-colour-teal: #00745e;
+
+	--procat-purple-1: #b674d4;
+	--procat-purple-2: #9556b3;
+	--procat-purple-3: #753893;
+	--procat-purple-4: #561a74;
+	--procat-purple-5: #380057;
+
+	--procat-teal-1: #56b8cf;
+	--procat-teal-2: #2592a9;
+	--procat-teal-3: #006e84;
+	--procat-teal-4: #004c61;
+	--procat-teal-5: #002c40;
+
+	--procat-light-1: #56b8cf;
+	--procat-light-2: #41cbce;
+	--procat-light-3: #52dcbf;
+	--procat-light-4: #81eaa5;
+	--procat-light-5: #baf488;
+	--procat-light-5: #f9f871;
+
+	--procat-gradient-1: #56b8cf;
+	--procat-gradient-2: #50a4d1;
+	--procat-gradient-3: #658dca;
+	--procat-gradient-4: #8172b5;
+	--procat-gradient-5: #965692;
+	--procat-gradient-6: #9d3b66;
+
 	/* mobile header height */
 	--procat-header-height: 64px;
 	/* */
 	--gutter: 12px;
 	/* fallback for first paint */
 	--toggle-w: 120px;
+}
+
+.heading-level1 {
+	text-align: center;
+	font-family: 'Acens', system-ui, sans-serif;
+	color: var(--procat-teal-2);
+	letter-spacing: .06em;
+	text-transform: uppercase;
+}
+
+.heading-level2 {
+	color: var(--procat-teal-1);
 }
 
 /* ========== Resets / base ========== */
@@ -69,7 +115,7 @@ html {
 /* Left rail / sidebar (desktop; mobile overrides below) */
 .sidebar {
 	width: 260px;
-	background: var(--panel);
+	background: var(--bg-panel);
 	border-right: 1px solid var(--line);
 	padding: 16px;
 	position: sticky;
@@ -87,11 +133,65 @@ html {
 	margin: 0 auto;
 }
 
-.footer {
-	margin-top: 48px;
-	padding-top: 24px;
-	border-top: 1px solid var(--line);
-	color: var(--muted);
+/* ========== Site Footrer ========== */
+
+.site-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 20px;
+	border-top: 1px solid rgba(255, 255, 255, .08);
+	background: var(--bg-footer);
+}
+
+.mixt-badge {
+	list-style: none;	
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 10px;
+	border-radius: 10px;
+	/* pill */
+	text-decoration: none;
+	color: var(--ink);
+	padding: 4px 10px;
+	border: 1px solid rgba(255, 255, 255, .12);
+	background: var(--procat-teal-4);
+	font-size: 12px;
+	letter-spacing: .02em;
+	text-transform: none;
+	padding: 4px 10px;
+}
+
+.mixt-badge:hover {
+	background: var(--accent);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, .06),
+		0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.mixt-badge:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.mixt-badge-gh {
+	width: 18px;
+	height: 18px;
+	opacity: .80;
+	flex: 0 0 auto;
+}
+
+.mixt-badge-label strong {
+	font-weight: 700;
+}
+
+/* Stack neatly on narrow screens */
+@media (max-width: 560px) {
+	.site-footer {
+		flex-direction: column;
+	}
 }
 
 /* ========== Brand (logo/banner links) ========== */
@@ -121,7 +221,7 @@ html {
 	margin: 0 0 12px 0;
 	border: 1px solid var(--line);
 	border-radius: 8px;
-	background: var(--panel);
+	background: var(--bg-hero);
 }
 
 /* Top-level headings (use Acens) */
@@ -156,29 +256,52 @@ html {
 }
 
 /* Links inside sections */
-.toc-links {
+/* --- Level 2 (nested) --- */
+.toc-links .toc-sublinks {
 	list-style: none;
-	margin: 0;
-	padding: 6px 8px 10px 8px;
+	margin: 4px 0 8px 0;
+	/* small gap under the parent item */
+	padding-left: 12px;
+	/* base indent for the whole sublist */
 }
 
-.toc-links li {
-	margin: 0;
+.toc-links {
+	list-style: none;
+}
+
+.toc-links>li {
+	margin-bottom: 4px;
 }
 
 .toc-links a {
-	display: block;
-	padding: 6px 8px;
 	text-decoration: none;
-	/* no underline */
+}
+
+.toc-links .toc-sublinks li {
+	margin: 0;
+}
+
+/* Override only what's needed so alignment stays consistent */
+.toc-links .toc-sublinks a {
+	display: block;
+	padding: 6px 8px 6px 12px;
+	/* keep your 6/8/6, add +12px left to indent */
+	text-decoration: none;
 	border-radius: 6px;
 	color: var(--ink);
+	font-size: 0.95em;
+	/* slightly lighter than level 1 */
 }
 
 .toc-links a:hover {
 	background: rgba(255, 255, 255, .04);
 	color: var(--accent);
 }
+
+/* Optional: a hairline guide if you want it later
+.toc-links .toc-sublinks { border-left: 1px solid rgba(255,255,255,.12); }
+*/
+
 
 /* Back-compat alias (if HTML uses .section-content) */
 .section-content a {
@@ -187,7 +310,12 @@ html {
 
 /* ========== Hero & cards (home) ========== */
 .hero {
-	background: linear-gradient(180deg, rgba(255, 255, 255, .03), transparent 60%);
+	background: #0b0b0d;
+	/* slightly lighter than body bg */
+	border-color: #2a2e35;
+	/* a bit brighter than current line */
+	box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+	/* subtle depth */
 	border: 1px solid var(--line);
 	border-radius: 14px;
 	padding: 24px 20px;
@@ -196,7 +324,35 @@ html {
 
 .hero .lead {
 	color: var(--muted);
-	max-width: 60ch;
+}
+
+.hero-eyebrow {
+	text-align: center;
+	font-family: 'Acens', system-ui, sans-serif;
+	color: var(--procat-purple-1);
+	letter-spacing: .06em;
+	text-transform: uppercase;
+}
+
+.hero-product {
+	text-align: center;
+	font-family: 'Acens', system-ui, sans-serif;
+	color: var(--procat-purple-2);
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	font-size: 64px;
+	font-weight: 700;
+	margin: 0px;
+	padding: 0;
+}
+
+.hero-tagline {
+	text-align: center;
+	color: var(--procat-gradient-5);
+	letter-spacing: .06em;
+	margin-top: 0px;
+	font-weight: 700;
+	font-size: 24px;
 }
 
 .grid3 {
@@ -206,7 +362,7 @@ html {
 }
 
 .card {
-	background: var(--panel);
+	background: var(--bg-panel);
 	border: 1px solid var(--line);
 	border-radius: 12px;
 	padding: 16px;
@@ -225,7 +381,7 @@ html {
 	right: 0;
 	z-index: 1200;
 	height: var(--procat-header-height);
-	background: var(--panel);
+	background: var(--bg-panel);
 	border-bottom: 1px solid var(--line);
 }
 
@@ -273,7 +429,6 @@ html {
 	min-width: 0px;
 }
 
-.topbar-nav-toggle,
 .button {
 	flex: 0 0 auto;
 	background: transparent;
@@ -294,11 +449,6 @@ html {
 	* - Disabled under prefers-reduced-motion to respect user settings.
 	*/
 	transition: background-color .15s, color .15s, border-color .15s, transform .12s;
-}
-
-.topbar-nav-toggle:hover {
-	background: rgba(255, 255, 255, .05);
-	color: var(--accent);
 }
 
 .button:hover {
@@ -353,71 +503,10 @@ Call To Action (CTA)
 	outline-offset: 2px;
 }
 
-/* Primary: filled */
-.cta-row a.primary {
-	background: var(--accent);
-	color: #0b0e11;
-	/* readable on accent */
-	border-color: var(--accent);
-}
-
-.cta-row a.primary:hover {
-	transform: translateY(-1px);
-}
-
-/* Secondary: your current outlined look (inherits base) */
-/* no extra rules needed
-.cta-row a.secondary {
-}
-*/
-
-.cta-row a.secondary:hover {
-	transform: translateY(-1px);
-}
-
-/* Link: quiet, text-only */
-.cta-row a.link {
-	background: transparent;
-	border-color: transparent;
-	box-shadow: none;
-	padding-left: 0;
-	padding-right: 0;
-	color: color-mix(in oklab, var(--ink) 85%, transparent);
-}
-
-.cta-row a.link:hover {
-	text-decoration: underline;
-}
-
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
 	.cta-row a {
 		transition: none;
-	}
-}
-
-/*
-Style the hero container CTAa as a larger versions of .cta-row (padding/weight/spacing).
-*/
-.hero-ctas {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.75rem;
-	margin-top: 1rem;
-}
-
-.hero-ctas a {
-	/* bump size a touch vs .cta-row a */
-	padding: 8px 12px;
-	font-weight: 600;
-	border-radius: 8px;
-}
-
-/* Optional: on small screens, let the primary be wider */
-@media (max-width: 640px) {
-	.hero-ctas a.primary {
-		min-width: 14rem;
-		text-align: center;
 	}
 }
 

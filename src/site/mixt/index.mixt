@@ -11,7 +11,8 @@ import [
 	body = [
 		// HERO
 		procat::hero(
-			"MIXT — less complexity, more delivery."
+			"Introduction"
+			"Less complexity, more delivery."
 			[
 				p = html::class(
 					"lead"
@@ -21,11 +22,11 @@ import [
 		)
 
 		// WHY MIXT
-		procat::h1("Why MIXT?")
+		procat::h2( "Why MIXT?" )
 		p = `We've spent years delivering complex programmes and have seen how unnecessary complexity slows teams down.
 			Glue code sprawls, specs drift from implementations, and documentation goes stale. MIXT exists to remove that friction.`
 
-		h2 = "The pain we keep seeing"
+		h3 = "The pain we keep seeing:"
 		ul = [
 			"YAML/JSON pipeline sprawl with fragile handoffs"
 			"Specs and code diverge; docs rot"
@@ -35,9 +36,9 @@ import [
 		]
 
 		// WHAT MIXT IS
-		procat::h1("What MIXT is")
+		procat::h2( "What is MIXT?" )
 		p = "A practical, schema-first language that makes transformation explicit, testable, and repeatable."
-		h2 = "Core pillars"
+		h3 = "Core pillars:"
 		ul = [
 			"Schema-first: strict, explicit types with metadata and validations"
 			"Deterministic builds: same inputs → same outputs, across environments"
@@ -47,7 +48,7 @@ import [
 		]
 
 		// HOW IT HELPS DELIVERY
-		procat::h1( "How it helps delivery" )
+		procat::h2( "How MIXT helps delivery" )
 		p = `Model first, then implement. Encode the rules once, generate consistent outputs,
 			and keep teams aligned with executable specifications and living documentation.`
 		ul = [
@@ -58,7 +59,7 @@ import [
 		]
 
 		// STATUS
-		procat::h1("Status")
+		procat::h2( "Status" )
 		p = `MIXT is in active development. We're dogfooding it in our own projects, refining the language and the toolchain.
 			When we're confident it's ready, we'll invite others to share the benefits.`
 

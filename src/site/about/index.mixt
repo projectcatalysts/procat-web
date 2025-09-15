@@ -9,15 +9,16 @@ import [
 	description = "We solve hard delivery problems in payments, data, and software — with clear models, executable specs, and measurable outcomes."
 
 	body = [
+		procat::h1( "About Project Catalysts" )
+
 		// Title & opener
-		procat::h1("Why we exist")
 		p = `Technology delivery is often harder than it needs to be. Handoffs multiply, specs drift,
 			and people are left reconciling versions instead of solving the problem. Project Catalysts
 			exists to remove that friction — so teams can focus on outcomes that matter.`
 
 		// What we actually solve (with substance)
-		procat::h1("What we solve")
-		h2 = "Typical challenges we take on"
+		procat::h1-hidden( "What we solve" )
+		procat::h2( "Typical challenges we take on" )
 		ul = [
 			"Standards & interoperability: ISO 20022 changes, coexistence, and clean translations without breaking downstream systems."
 			"Mission-critical payments: RTGS replacements, settlement choreography, and operational readiness without service interruption."
@@ -27,10 +28,10 @@ import [
 		]
 
 		// How we work (explicit artefacts + steps)
-		procat::h1("How we work")
+		procat::h1-hidden("How we work")
 		p = `We favour small, senior teams, tight feedback loops, and artefacts you can run — not slideware.
 			You'll see the shape of the solution early, and we'll prove it with executable specs and measurable checks.`
-		h2 = "Engagement steps"
+		procat::h2( "Engagement steps" )
 		ol = [
 			"Model first — agree the data shapes, rules, and success criteria. Artefacts: schemas, dependency maps, acceptance checks."
 			"Executable spec — encode rules and tests beside the transforms. Artefacts: test suites, fixtures, validation harness."
@@ -39,7 +40,7 @@ import [
 		]
 
 		// What you can expect (commitments, not slogans)
-		procat::h1("What you can expect")
+		procat::h2("What you can expect")
 		ul = [
 			"Clarity up-front: we make unknowns explicit and de-risk early decisions."
 			"Measurable progress: every iteration lands something you can run, test, or show."
@@ -49,7 +50,7 @@ import [
 		]
 
 		// Tools & approach (why MIXT matters without turning into docs)
-		procat::h1("Tools we bring")
+		procat::h2("Tools we bring")
 		p = `We use pragmatic tools that keep structure, rules, and documentation in lockstep.
 			MIXT — authored and tested by Rik — is our catalyst for delivery: a schema-first language
 			for deterministic data and document transformation that publishes to web, PDF, and DOCX from one source.`
@@ -61,7 +62,6 @@ import [
 		]
 
 		// Proof & track record (link out)
-		procat::h1("Where this comes from")
 		p = `We've applied these patterns across payments and financial systems — from New Zealand's ISO 20022 migration
 			to RTGS modernisation and global mobile banking delivery. The common thread is the same:
 			clarity, executable specs, and outcomes you can measure.`
@@ -90,7 +90,7 @@ import [
 		)
 
 		// Practicalities (engagement options)
-		procat::h1("Engagement options")
+		procat::h2("Engagement options")
 		ul = [
 			"Industry delivery leadership: align stakeholders, shape scope, and land the programme."
 			"Solution design & build: schema-first pipelines, validations, and services that are easy to run."
@@ -99,9 +99,10 @@ import [
 		]
 
 		// Contact anchor
-		procat::h1("Contact")
-		p = `If you have a concrete outcome in mind — or a knot that needs untying — we're keen to help.
-			Share a few bullets on goals, constraints, and timeline, and we'll propose a focused plan with checkpointed steps.`
+		procat::h2("Contact")
+		p = `If you have a concrete outcome in mind, or a problem that needs solving, we're keen to help.
+			Share a few bullets on goals, constraints, and timelines, and we'll bring the catalysts to turn
+			your goals into delivered outcomes.`
 		p = html::attributed(
 			{
 				id = "contact",
@@ -110,7 +111,7 @@ import [
 			[
 				a = html::attributed(
 					{
-						href = "mailto:hello@projectcatalysts.example"
+						href = "mailto:deliver@projectcatalysts.com?subject=Website Enquiry"
 					}
 					"Email us"
 				)

@@ -38,14 +38,14 @@ import [
 		[
 			"title"
 			"blurb"
-			"link"
+			"callToAction"
 			"bullets"
 		]
 		[
 			[
 				"Trusted people"
 				"Experienced, outcome-focused leaders who thrive in complexity — comfortable with executives, regulators, and delivery teams."
-				{ label = "Our people", href = "/people/" }
+				{ label = "Our people", href = "/people/", style = "primary" }
 				[
 					"Proven leadership in banking and payments"
 					"Clear communication and stakeholder alignment"
@@ -55,7 +55,7 @@ import [
 			[
 				"Delivered outcomes"
 				"From ISO 20022 industry migration to enterprise programmes, we unblock decisions, simplify scope, and ship."
-				{ label = "Delivered outcomes", href = "/delivered/" }
+				{ label = "Delivered outcomes", href = "/delivered/", style = "primary" }
 				[
 					"ISO 20022 industry migration leadership"
 					"Programme recovery and decision enablement"
@@ -65,7 +65,7 @@ import [
 			[
 				"Innovative tools"
 				"MIXT reduces data and document complexity — bridging XML, JSON, HTML, and PDFs with a single, testable approach."
-				{ label = "What is MIXT?", href = "/mixt/" }
+				{ label = "What is MIXT?", href = "/mixt/", style = "primary" }
 				[
 					"Declarative transformations without the YAML sprawl"
 					"Consistent handling of XML/JSON/HTML/PDF"
@@ -165,8 +165,8 @@ import [
 					]
 				)
 				procat::callsToAction(
-					"hero-ctas",
-					hero{ callsToAction }
+					"cta-row",
+					Table.ToRecords( hero{ callsToAction } )
 				)
 			]
 		)
@@ -218,8 +218,8 @@ import [
 		)
 
 		procat::callsToAction(
-			"cta-row center"
-			callsToAction
+			"cta-row"
+			Table.ToRecords( callsToAction )
 		)
 	]
 }

@@ -109,12 +109,23 @@ import [
 		)
 	)
 
-	// procat::heading_1 creates a level 1 heading
+	// procat::h1 creates a level 1 heading
 	procat::h1 = (heading as text) => #( h1 =
 		html::attributed(
 			{
 				id = html::href( "", heading, "" )
 				class = "heading-level1"
+			}
+			heading
+		)
+	)
+
+	// procat::h1 creates a hidden level 1 heading
+	procat::h1-hidden = (heading as text) => #( h1 =
+		html::attributed(
+			{
+				id = html::href( "", heading, "" )
+				class = "visually-hidden"
 			}
 			heading
 		)
@@ -308,13 +319,21 @@ import [
 	} @> "✘"
 
 	// procat::hero
-	procat::hero = ( heading as text, ...content ) => #(section = html::class(
+	procat::hero = ( id as text, tagline as text, ...content ) => #(section = html::class(
 		"hero"
 		[
 			div = html::class(
 				"hero-inner"
 				[
-					procat::h1( heading )
+					procat::h1-hidden( id )
+					p = html::class(
+						"hero-product"
+						"MIXT"
+					)
+					p = html::class(
+						"hero-tagline"
+						tagline
+					)
 				] & content
 			)
 		]
@@ -332,9 +351,8 @@ import [
 	)
 
 	// procat::callsToAction
-	procat::callsToAction = ( class as text, ctas as table ) => #(div = 
+	procat::callsToAction = ( class as text, ctaRecords as list ) => (
 		let
-			ctaRecords = Table.ToRecords( ctas )
 			transformed = List.Transform(
 				ctaRecords
 				(cta as record) => #(a =
@@ -347,11 +365,9 @@ import [
 					)
 				)
 			)
+			wrapped = #(p = html::class( class, transformed ) )
 		in
-			html::class(
-				class
-				transformed
-			)
+			wrapped
 	)
 
 	// procat::pillars
@@ -370,15 +386,12 @@ import [
 							)
 							p = pillar{ blurb }
 							procat::bullets( pillar{ bullets }... )
-							p = [
-								a = html::attributed(
-									{
-										class = "button link"
-										href = pillar{ link }{ href }
-									}
-									pillar{ link }{ label }
-								)
-							]
+							procat::callsToAction(
+								"cta-row"
+								[
+									pillar{ callToAction }
+								]
+							)
 						]
 					)					
 				)

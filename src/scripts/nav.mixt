@@ -36,7 +36,7 @@ import [
 					label = html::attributed(
 						{
 							for = "sidebar-toggle"
-							class = "topbar-nav-toggle"
+							class = "button topbar-nav-toggle"
 							aria-controls = "sidebar"
 							role = "button"
 							tabindex = "0"
@@ -46,6 +46,29 @@ import [
 				]
 			)
 		}
+	)
+
+	// transformSubsections
+	transformSubsections = ( slugPrefix as text, subSections as list ) => (
+		if List.Count( subSections ) == 0 then
+			[]
+		else
+			[
+				ul = html::class(
+					"toc-sublinks"
+					List.Transform(
+						subSections
+						(title as text, index as number, id as text) => [
+							a = html::attributed(
+								{
+									href = slugPrefix & id
+								}
+								title
+							)
+						]
+					)
+				)
+			]
 	)
 
 	// nav::sidebar
@@ -109,7 +132,7 @@ import [
 														}
 														_section{ Section }
 													)
-												]
+												] & transformSubsections( slugPrefix, _section{ SubSections } )
 											)
 										)
 									]
@@ -157,8 +180,31 @@ import [
 		combineClasses( "content", getHtmlClass( docContent{ body } ) )
 		docContent{ body } & [
 			footer = html::class(
-				"footer"
-				html::copyright( siteOwner )
+				"site-footer"
+				[
+					html::copyright( siteOwner )
+					a = html::attributed(
+						{
+							class = "mixt-badge"
+							href = "https://github.com/ProjectCatalysts/mixt"
+							target = "_blank"
+							rel = "noopener"
+							aria-label = "Built using MIXT — view the GitHub repo"
+						}
+						[
+							span = html::class(
+								"mixt-badge-label"
+								[
+									span = "Built using"
+									strong = "MIXT"
+								]
+							)
+
+							// Octocat (inline so no extra requests)
+							html::github_svg( "mixt-badge-gh" )
+						]
+					)
+				]
 			) 
 		]
 	)
