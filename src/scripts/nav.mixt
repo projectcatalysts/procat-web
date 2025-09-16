@@ -186,16 +186,16 @@ import [
 					a = html::attributed(
 						{
 							class = "mixt-badge"
-							href = "https://github.com/ProjectCatalysts/mixt"
+							href = "https://github.com/projectcatalysts/procat-web"
 							target = "_blank"
 							rel = "noopener"
-							aria-label = "Built using MIXT — view the GitHub repo"
+							aria-label = "Crafted using MIXT — view the GitHub repo"
 						}
 						[
 							span = html::class(
 								"mixt-badge-label"
 								[
-									span = "Built using"
+									span = "Crafted using"
 									strong = "MIXT"
 								]
 							)
